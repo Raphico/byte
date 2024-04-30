@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  app:
+    platform: "linux/amd64"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_CLIENTVAR: "clientvar"
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    image: byte
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/byte
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=byte
+    ports:
+      - "5432:5432"
+    volumes:
+      - byte_data:/var/lib/postgresql/data
+
+volumes:
+  byte_data:
