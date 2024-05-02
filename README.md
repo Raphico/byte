@@ -12,11 +12,11 @@ A platform for developers to plan and manage virtual workshops
 
 ## Architecture Overview
 
-The architecture of this project revolves around a streamlined development and deployment process, leveraging Docker in the development environment for consistency and mirroring production conditions. For deployment, the project utilizes Vercel and Vercel Postgres Database for database
+The architecture of this project revolves around a streamlined development and deployment process, leveraging Docker in the development environment for consistency and mirroring production conditions. For deployment, the project utilizes Vercel and Vercel Postgres Database
 
 ## Roadmap
 
-- [ ] Deploy the application to Vercel
+- [x] Deploy the application to Vercel
 - [ ] Setup home page
 - [ ] Add auth with clerk
       and more
