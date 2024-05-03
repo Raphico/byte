@@ -12,7 +12,7 @@ A platform for developers to plan and manage virtual workshops
 
 ## Tech stack
 
-- **Frontend:** Typescript, [Next.js](https://nextjs.org/), [Tailwindcss](https://tailwindcss.com)
+- **Frontend:** Typescript, [Next.js](https://nextjs.org/), [Tailwindcss](https://tailwindcss.com), [stream-io/video-react-sdk](https://github.com/GetStream/stream-video-js) to stream video and chat
 - **Backend:** Nextjs server actions and [Drizzle ORM](https://orm.drizzle.team) to manage database interaction
 - **Database:** Postgres
 - **Auth:** [Clerk](https://clerk.com)
@@ -25,7 +25,7 @@ The architecture of this project revolves around a streamlined development and d
 ## Roadmap
 
 - [x] Deploy the application to Vercel
-- [ ] App setup
+- [x] Add app configuration
 - [ ] Setup home page
 - [ ] Add auth
       and more

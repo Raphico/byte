@@ -13,6 +13,8 @@ services:
     image: byte
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/byte
+    volumes:
+      - .:/app
 
   db:
     image: postgres

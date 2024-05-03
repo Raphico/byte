@@ -1,0 +1,14 @@
+{
+  "name": "Byte",
+  "short_name": "Byte",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#09090b",
+  "background_color": "#09090b",
+  "display": "standalone"
+}
