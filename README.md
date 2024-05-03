@@ -1,6 +1,14 @@
-# Byte
+# [Byte](https://byte-liart.vercel.app)
 
 A platform for developers to plan and manage virtual workshops
+
+## Core features
+
+1. Users should be able to create and schedule virtual workshops, specifying details such as title, details, date, time, duration, and target audience
+
+2. Users should be able to register for workshops, receiving confirmation for registering and receiving reminders for upcoming events
+
+3. Interactive workshop session with video conferencing for organizer, live chats for participants to communicate with other participants and the organizer, and an integrated code editor for participants to follow along
 
 ## Tech stack
 
@@ -17,8 +25,9 @@ The architecture of this project revolves around a streamlined development and d
 ## Roadmap
 
 - [x] Deploy the application to Vercel
+- [ ] App setup
 - [ ] Setup home page
-- [ ] Add auth with clerk
+- [ ] Add auth
       and more
 
 ## Running locally
