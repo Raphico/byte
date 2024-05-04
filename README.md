@@ -56,7 +56,19 @@ git clone https://github.com/Raphico/byte.git
 cd byte
 ```
 
-2. Start the development server
+2. Copy and update .env.example to .env
+
+```bash
+cp .env.example .env
+```
+
+3. Install dependencies
+
+```bash
+pnpm i
+```
+
+4. Start the development server
 
 ```bash
 pnpm run dev
