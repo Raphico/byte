@@ -12,6 +12,8 @@ import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { getAbsoluteUrl } from "@/utils/getAbsoluteUrl"
 
+import { Analytics } from "./_components/analytics"
+
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: {
@@ -83,6 +85,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
