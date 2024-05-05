@@ -1,4 +1,5 @@
 .env
+.env.example
 Dockerfile
 .dockerignore
 node_modules

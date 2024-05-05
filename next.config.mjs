@@ -6,9 +6,8 @@ const nextConfig = {
     locales: ["en"],
     defaultLocale: "en",
   },
-  output: "standalone",
 
-  // typescript & eslint complaints are addressed in CI pipeline
+  // typescript errors & eslint complaints are checked in CI pipeline
   eslint: {
     ignoreDuringBuilds: true,
   },

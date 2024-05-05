@@ -12,7 +12,9 @@ A platform for developers to plan and manage virtual workshops
 
 ## Tech stack
 
-- **Frontend:** Typescript, [Next.js](https://nextjs.org/), [Tailwindcss](https://tailwindcss.com), [stream-io/video-react-sdk](https://github.com/GetStream/stream-video-js) to stream video and chat
+- **Frontend:** Typescript, [Next.js](https://nextjs.org/), [Tailwindcss](https://tailwindcss.com)
+- **Component Library:** [shadcnui](https://ui.shadcn.com)
+- **Stream video and chat:** [stream-io/video-react-sdk](https://github.com/GetStream/stream-video-js)
 - **Backend:** Nextjs server actions and [Drizzle ORM](https://orm.drizzle.team) to manage database interaction
 - **Database:** Postgres
 - **Auth:** [Clerk](https://clerk.com)

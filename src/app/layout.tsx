@@ -1,14 +1,19 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import localFont from "next/font/local"
+import { GeistSans } from "geist/font/sans"
+
+import { ThemeProvider } from "./_components/theme-provider"
 
 import "@/styles/globals.css"
 
+import { env } from "@/env.js"
+
 import { siteConfig } from "@/config/site"
+import { cn } from "@/lib/utils"
 import { getAbsoluteUrl } from "@/utils/getAbsoluteUrl"
 
-const inter = Inter({ subsets: ["latin"] })
-
 export const metadata: Metadata = {
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: {
     default: siteConfig.title,
     template: `%s | ${siteConfig.title}`,
@@ -50,14 +55,36 @@ export const metadata: Metadata = {
   manifest: getAbsoluteUrl("/manifest.json"),
 }
 
+const fontSans = GeistSans
+
+const fontHeading = localFont({
+  src: "../assets/fonts/CalSans-SemiBold.woff2",
+  variable: "--font-heading",
+})
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontHeading.variable,
+          fontSans.variable
+        )}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
