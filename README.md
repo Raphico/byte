@@ -28,7 +28,7 @@ The architecture of this project revolves around a streamlined development and d
 
 - [x] Deploy the application to Vercel
 - [x] Add app configuration
-- [ ] Setup home page
+- [x] Add landing page
 - [ ] Add auth
       and more
 

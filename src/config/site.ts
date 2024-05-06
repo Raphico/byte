@@ -2,5 +2,5 @@ export const siteConfig = {
   title: "Byte",
   description: "A platform for developers to plan and manage virtual workshops",
   url: "https://byte.raphico.tech",
-  github: "https://github.com/raphico/byte",
+  githubLink: "https://github.com/raphico/byte",
 }

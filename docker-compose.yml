@@ -9,7 +9,6 @@ services:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/byte
     volumes:
       - .:/app
-      - /app/node_modules
     depends_on:
       - db
 

@@ -60,6 +60,23 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        /**
+         * Original source:
+         * @see https://github.com/juliusmarminge/acme-corp/blob/main/tooling/tailwind/index.ts
+         */
+        "fade-up": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(10px)",
+          },
+          "75%": {
+            opacity: "0.6",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -72,10 +89,14 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-up": "fade-up 0.5s",
       },
       fontFamily: {
         sans: ["var(--font-geist-sans)", ...fontFamily.sans],
         heading: ["var(--font-heading)", ...fontFamily.sans],
+      },
+      backgroundImage: {
+        dot: "url('/images/dot.svg')",
       },
     },
   },
