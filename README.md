@@ -17,19 +17,19 @@ A platform for developers to plan and manage virtual workshops
 - **Stream video and chat:** [stream-io/video-react-sdk](https://github.com/GetStream/stream-video-js)
 - **Backend:** Nextjs server actions and [Drizzle ORM](https://orm.drizzle.team) to manage database interaction
 - **Database:** Postgres
-- **Auth:** [Clerk](https://clerk.com)
+- **Auth:** [Lucia auth](https://lucia-auth.com)
 - **DevOps:** Docker and Github actions to automate workflows
 
 ## Architecture Overview
 
-The architecture of this project revolves around a streamlined development and deployment process, leveraging Docker in the development environment for consistency and mirroring production conditions. For deployment, the project utilizes Vercel and Vercel Postgres Database
+The architecture of this project revolves around a streamlined development and deployment process, leveraging Docker in the development environment for consistency and mirroring production conditions. For deployment, the project utilizes Vercel and Supabase postgres database
 
 ## Roadmap
 
 - [x] Deploy the application to Vercel
 - [x] Add app configuration
 - [x] Add landing page
-- [ ] Add auth
+- [ ] Add auth with lucia
       and more
 
 ## Running locally
