@@ -6,6 +6,7 @@ import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { badgeVariants } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
+import { DotBg } from "@/components/dot-bg"
 
 export const viewport: Viewport = {
   colorScheme: "dark",
@@ -14,7 +15,7 @@ export const viewport: Viewport = {
 export default function HomePage() {
   return (
     <section className="container flex min-h-screen w-full flex-col items-center justify-center space-y-4 text-center">
-      <div className="absolute inset-0 -z-10 bg-dot"></div>
+      <DotBg />
 
       <Link
         href={siteConfig.githubLink}
