@@ -1,6 +1,8 @@
 import { type Metadata } from "next"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
+import { validateRequest } from "@/lib/lucia/validate-request"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
@@ -10,12 +12,17 @@ export const metadata: Metadata = {
   description: "Sign in to Byte",
 }
 
-export default function SignInPage() {
+export default async function SignInPage() {
+  const { user } = await validateRequest()
+
+  if (user) {
+    redirect("/dashboard")
+  }
   return (
     <div className="container flex min-h-screen w-full max-w-sm flex-col items-center justify-center space-y-4">
       <h3 className="text-lg font-semibold">Authenticate with Github</h3>
       <Link
-        href=""
+        href="/login/github"
         className={cn(buttonVariants(), "w-full")}
         aria-label="Authenticate with Github"
       >

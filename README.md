@@ -29,8 +29,8 @@ The architecture of this project revolves around a streamlined development and d
 - [x] Deploy the application to Vercel
 - [x] Add app configuration
 - [x] Add landing page
-- [ ] Add auth with lucia
-      and more
+- [x] Add auth with lucia
+- [ ] Add dashboard page
 
 ## Running locally
 

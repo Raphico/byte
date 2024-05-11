@@ -1,7 +1,14 @@
-import { ChevronLeft, type LucideProps } from "lucide-react"
+import {
+  ChevronLeft,
+  RotateCcw,
+  TriangleAlert,
+  type LucideProps,
+} from "lucide-react"
 
 export const Icons = {
   chevronLeft: ChevronLeft,
+  refresh: RotateCcw,
+  warning: TriangleAlert,
   github: ({ ...props }: LucideProps) => (
     <svg
       aria-hidden="true"

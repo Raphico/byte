@@ -50,7 +50,7 @@ export default function HomePage() {
       </p>
 
       <Link
-        href="/sign-in"
+        href="/login"
         className={cn(
           buttonVariants(),
           "animate-fade-up bg-gradient-to-r from-neutral-200 via-zinc-100 to-neutral-200 text-zinc-900"
