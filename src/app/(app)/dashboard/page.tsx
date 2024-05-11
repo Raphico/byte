@@ -2,6 +2,7 @@ import { type Metadata } from "next"
 import { redirect } from "next/navigation"
 import { env } from "@/env"
 
+import { redirects } from "@/config/constants"
 import { logout } from "@/lib/lucia/actions"
 import { validateRequest } from "@/lib/lucia/validate-request"
 import { Button } from "@/components/ui/button"
@@ -16,7 +17,7 @@ export default async function DashboardPage() {
   const { user } = await validateRequest()
 
   if (!user) {
-    return redirect("/sign-in")
+    return redirect(redirects.toLogin)
   }
 
   return (

@@ -6,6 +6,7 @@ import { OAuth2RequestError } from "arctic"
 import { eq } from "drizzle-orm"
 import { generateIdFromEntropySize } from "lucia"
 
+import { redirects } from "@/config/constants"
 import { github, lucia } from "@/lib/lucia"
 
 export async function GET(request: Request): Promise<Response> {
@@ -17,7 +18,7 @@ export async function GET(request: Request): Promise<Response> {
   if (!code || !state || !storedState || state !== storedState) {
     return new Response(null, {
       status: 400,
-      headers: { Location: "/login" },
+      headers: { Location: redirects.toLogin },
     })
   }
 
@@ -38,7 +39,7 @@ export async function GET(request: Request): Promise<Response> {
         }),
         {
           status: 400,
-          headers: { Location: "/login" },
+          headers: { Location: redirects.toLogin },
         }
       )
     }
@@ -58,7 +59,7 @@ export async function GET(request: Request): Promise<Response> {
       return new Response(null, {
         status: 302,
         headers: {
-          Location: "/dashboard",
+          Location: redirects.afterLogin,
         },
       })
     }
@@ -83,7 +84,7 @@ export async function GET(request: Request): Promise<Response> {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: "/dashboard",
+        Location: redirects.afterLogin,
       },
     })
   } catch (e) {

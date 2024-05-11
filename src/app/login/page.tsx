@@ -2,6 +2,7 @@ import { type Metadata } from "next"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 
+import { redirects } from "@/config/constants"
 import { validateRequest } from "@/lib/lucia/validate-request"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
@@ -16,8 +17,9 @@ export default async function SignInPage() {
   const { user } = await validateRequest()
 
   if (user) {
-    redirect("/dashboard")
+    redirect(redirects.afterLogin)
   }
+
   return (
     <div className="container flex min-h-screen w-full max-w-sm flex-col items-center justify-center space-y-4">
       <h3 className="text-lg font-semibold">Authenticate with Github</h3>
