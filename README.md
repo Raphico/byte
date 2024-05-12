@@ -30,7 +30,15 @@ The architecture of this project revolves around a streamlined development and d
 - [x] Add app configuration
 - [x] Add landing page
 - [x] Add auth with lucia
-- [ ] Add dashboard page
+- [ ] Workshop creation
+- [ ] Add workshops page
+- [ ] Interactive workshop session(e.g video conferencing, live chat code editor)
+- [ ] Edit workshop
+- [ ] Delete workshop
+- [ ] Participant registration
+- [ ] Workshops tags for search
+- [ ] Join workshops with workshop id
+- [ ] Complete workshop & dashboard page
 
 ## Running locally
 
@@ -43,10 +51,22 @@ git clone https://github.com/Raphico/byte.git
 cd byte
 ```
 
-2. Start the application
+2. Copy and update .env.example to .env
+
+```bash
+cp .env.example .env
+```
+
+3. Start the application
 
 ```bash
 docker-compose up --build
+```
+
+4. Update database schema
+
+```bash
+pnpm run db:migrate
 ```
 
 ### Without Docker
@@ -68,6 +88,12 @@ cp .env.example .env
 
 ```bash
 pnpm i
+```
+
+4. Update database schema
+
+```bash
+pnpm run db:migrate
 ```
 
 4. Start the development server
