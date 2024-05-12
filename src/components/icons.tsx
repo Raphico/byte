@@ -1,11 +1,13 @@
 import {
   ChevronLeft,
+  MoveRight,
   RotateCcw,
   TriangleAlert,
   type LucideProps,
 } from "lucide-react"
 
 export const Icons = {
+  arrowRight: MoveRight,
   chevronLeft: ChevronLeft,
   refresh: RotateCcw,
   warning: TriangleAlert,
