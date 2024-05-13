@@ -16,16 +16,15 @@ export const viewport: Viewport = {
 
 export default function HomePage() {
   return (
-    <section className="container flex min-h-screen w-full flex-col items-center justify-center space-y-4 text-center">
+    <section className="container flex min-h-[75vh] w-full max-w-5xl flex-col items-center justify-center">
       <DotBg />
-
       <Link
         href={siteConfig.githubLink}
         className={cn(
           badgeVariants({
             variant: "outline",
           }),
-          "group animate-fade-up text-zinc-300 transition-colors duration-150 hover:text-white"
+          "group mb-4 animate-fade-up text-sm font-medium text-zinc-300 transition-colors duration-150 hover:text-white"
         )}
         target="_blank"
         rel="noreferrer"
@@ -39,14 +38,14 @@ export default function HomePage() {
       </Link>
 
       <h1
-        className="max-w-3xl animate-fade-up bg-gradient-to-b from-neutral-200 via-zinc-200 to-neutral-500 bg-clip-text font-heading text-5xl font-semibold tracking-tight text-transparent sm:text-7xl lg:text-8xl"
+        className="mb-2 max-w-3xl animate-fade-up bg-gradient-to-b from-neutral-200 via-zinc-200 to-neutral-500 bg-clip-text text-center font-heading text-4xl font-semibold tracking-tight text-transparent md:text-7xl lg:text-8xl"
         style={{ animationDelay: "0.20s", animationFillMode: "both" }}
       >
         <Balancer>One Platform for Virtual Learning</Balancer>
       </h1>
 
       <p
-        className="max-w-lg animate-fade-up text-lg text-zinc-400 sm:pb-2"
+        className="mb-4 max-w-lg animate-fade-up text-center text-base text-zinc-400 md:text-lg"
         style={{ animationDelay: "0.30s", animationFillMode: "both" }}
       >
         Plan, organize, and manage virtual workshop sessions
