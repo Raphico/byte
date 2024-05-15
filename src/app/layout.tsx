@@ -10,7 +10,8 @@ import { env } from "@/env.js"
 
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
-import { getAbsoluteUrl } from "@/utils/getAbsoluteUrl"
+import { getAbsoluteUrl } from "@/utils/get-absolute-url"
+import { Toaster } from "@/components/ui/sonner"
 
 import { Analytics } from "./_components/analytics"
 
@@ -86,6 +87,7 @@ export default function RootLayout({
         >
           {children}
           <Analytics />
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

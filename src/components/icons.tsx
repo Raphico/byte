@@ -1,5 +1,7 @@
 import {
+  AlignLeft,
   ChevronLeft,
+  LogOut,
   MoveRight,
   RotateCcw,
   TriangleAlert,
@@ -7,6 +9,8 @@ import {
 } from "lucide-react"
 
 export const Icons = {
+  menu: AlignLeft,
+  logOut: LogOut,
   arrowRight: MoveRight,
   chevronLeft: ChevronLeft,
   refresh: RotateCcw,

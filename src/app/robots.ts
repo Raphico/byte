@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 
-import { getAbsoluteUrl } from "@/utils/getAbsoluteUrl"
+import { getAbsoluteUrl } from "@/utils/get-absolute-url"
 
 export default function robots(): MetadataRoute.Robots {
   return {

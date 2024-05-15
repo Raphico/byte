@@ -3,9 +3,7 @@ import { redirect } from "next/navigation"
 import { env } from "@/env"
 
 import { redirects } from "@/config/constants"
-import { logout } from "@/lib/lucia/actions"
 import { validateRequest } from "@/lib/lucia/validate-request"
-import { Button } from "@/components/ui/button"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -23,9 +21,6 @@ export default async function DashboardPage() {
   return (
     <div>
       <h1 className="text-lg">{user.username}</h1>
-      <form action={logout}>
-        <Button>Sign out</Button>
-      </form>
     </div>
   )
 }

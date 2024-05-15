@@ -14,3 +14,12 @@ export interface GitHubUser {
   email: string
   avatar_url: string
 }
+
+export interface NavItem {
+  title: string
+  href: string
+}
+
+export interface AppConfig {
+  navItems: NavItem[]
+}
