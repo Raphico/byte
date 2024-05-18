@@ -1,9 +1,13 @@
 import { type Metadata } from "next"
-import { redirect } from "next/navigation"
 import { env } from "@/env"
 
-import { redirects } from "@/config/constants"
-import { validateRequest } from "@/lib/lucia/validate-request"
+import { Button } from "@/components/ui/button"
+import { EmptyShell } from "@/components/empty-shell"
+import { Icons } from "@/components/icons"
+import { PageHeader, PageHeaderHeading } from "@/components/page-header"
+import { Shell } from "@/components/shell"
+
+import { WorkshopActionsDropdown } from "./_components/workshop-actions-dropdown"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -11,16 +15,27 @@ export const metadata: Metadata = {
   description: "Welcome to the dashboard",
 }
 
-export default async function DashboardPage() {
-  const { user } = await validateRequest()
-
-  if (!user) {
-    return redirect(redirects.toLogin)
-  }
-
+export default function DashboardPage() {
   return (
-    <div>
-      <h1 className="text-lg">{user.username}</h1>
-    </div>
+    <Shell className="max-w-6xl">
+      <div className="flex items-center justify-between">
+        <PageHeader>
+          <PageHeaderHeading>Upcoming</PageHeaderHeading>
+        </PageHeader>
+
+        <WorkshopActionsDropdown />
+      </div>
+
+      <EmptyShell
+        title="No Upcoming Workshops"
+        description="Looks like you don't have any workshops scheduled yet"
+        icon="empty"
+      >
+        <Button size="sm">
+          <Icons.plus className="mr-2 size-4" aria-hidden="true" />
+          Create Workshop
+        </Button>
+      </EmptyShell>
+    </Shell>
   )
 }

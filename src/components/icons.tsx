@@ -1,15 +1,23 @@
 import {
-  AlignLeft,
   ChevronLeft,
+  CircleEllipsis,
+  LayoutDashboard,
   LogOut,
   MoveRight,
+  PackageOpen,
+  Plus,
   RotateCcw,
   TriangleAlert,
+  Video,
   type LucideProps,
 } from "lucide-react"
 
 export const Icons = {
-  menu: AlignLeft,
+  video: Video,
+  plus: Plus,
+  circleEllipsis: CircleEllipsis,
+  empty: PackageOpen,
+  menu: LayoutDashboard,
   logOut: LogOut,
   arrowRight: MoveRight,
   chevronLeft: ChevronLeft,
