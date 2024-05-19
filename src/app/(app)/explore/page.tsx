@@ -11,8 +11,8 @@ import { WorkshopActionsDropdown } from "../_components/workshop-actions-dropdow
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-  title: "Dashboard",
-  description: "Welcome to the dashboard",
+  title: "Explore",
+  description: "Find and Join Workshop sessions",
 }
 
 export default function DashboardPage() {
@@ -20,15 +20,15 @@ export default function DashboardPage() {
     <Shell className="max-w-6xl">
       <div className="flex items-center justify-between">
         <PageHeader>
-          <PageHeaderHeading>Upcoming</PageHeaderHeading>
+          <PageHeaderHeading>Explore</PageHeaderHeading>
         </PageHeader>
 
         <WorkshopActionsDropdown />
       </div>
 
       <EmptyShell
-        title="No Upcoming Workshops"
-        description="Looks like you don't have any workshops scheduled yet"
+        title="No Workshops Available"
+        description="It looks like there are no workshops available at the moment"
         icon="empty"
       >
         <Button size="sm">
