@@ -4,7 +4,7 @@ A platform for developers to plan and manage virtual workshops
 
 ## Core features
 
-1. Users should be able to create and schedule virtual workshops, specifying details such as title, details, date, time, duration, and target audience
+1. Users should be able to create and schedule virtual workshops
 
 2. Users should be able to register for workshops, receiving confirmation for registering and receiving reminders for upcoming events
 
@@ -31,13 +31,11 @@ The architecture of this project revolves around a streamlined development and d
 - [x] Add landing page
 - [x] Add auth with lucia
 - [ ] Workshop creation
-- [ ] Add workshops page
 - [ ] Interactive workshop session(e.g video conferencing, live chat code editor)
 - [ ] Edit workshop
 - [ ] Delete workshop
 - [ ] Participant registration
-- [ ] Workshops tags for search
-- [ ] Join workshops with workshop id
+- [ ] Join workshops with workshop code
 - [ ] Complete workshop & dashboard page
 
 ## Running locally

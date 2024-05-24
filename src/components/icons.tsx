@@ -1,7 +1,12 @@
 import {
+  Calendar,
+  Check,
   ChevronLeft,
   CircleEllipsis,
+  CircleHelp,
+  Copy,
   LayoutDashboard,
+  Loader2,
   LogOut,
   MoveRight,
   PackageOpen,
@@ -13,6 +18,11 @@ import {
 } from "lucide-react"
 
 export const Icons = {
+  help: CircleHelp,
+  calendar: Calendar,
+  spinner: Loader2,
+  copy: Copy,
+  check: Check,
   video: Video,
   plus: Plus,
   circleEllipsis: CircleEllipsis,

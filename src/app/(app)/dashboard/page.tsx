@@ -1,13 +1,11 @@
 import { type Metadata } from "next"
 import { env } from "@/env"
 
-import { Button } from "@/components/ui/button"
 import { EmptyShell } from "@/components/empty-shell"
-import { Icons } from "@/components/icons"
 import { PageHeader, PageHeaderHeading } from "@/components/page-header"
 import { Shell } from "@/components/shell"
-
-import { WorkshopActionsDropdown } from "../_components/workshop-actions-dropdown"
+import { CreateJoinWorkshopDropdown } from "@/components/workshops/create-join-workshop-dropdown"
+import { CreateWorkshopButton } from "@/components/workshops/create-workshop-button"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -23,7 +21,7 @@ export default function DashboardPage() {
           <PageHeaderHeading>Upcoming</PageHeaderHeading>
         </PageHeader>
 
-        <WorkshopActionsDropdown />
+        <CreateJoinWorkshopDropdown />
       </div>
 
       <EmptyShell
@@ -31,10 +29,7 @@ export default function DashboardPage() {
         description="Looks like you don't have any workshops scheduled yet"
         icon="empty"
       >
-        <Button size="sm">
-          <Icons.plus className="mr-2 size-4" aria-hidden="true" />
-          Create Workshop
-        </Button>
+        <CreateWorkshopButton />
       </EmptyShell>
     </Shell>
   )
