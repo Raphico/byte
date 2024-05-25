@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 
 import { Icons } from "./icons"
 
-interface MessageShellProps extends React.HTMLAttributes<HTMLDivElement> {
+interface EmptyShellProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string
   description?: string
   icon?: keyof typeof Icons
@@ -15,13 +15,13 @@ export function EmptyShell({
   className,
   children,
   ...props
-}: MessageShellProps) {
+}: EmptyShellProps) {
   const Icon = Icons[icon]
 
   return (
     <div
       className={cn(
-        "mx-auto flex h-[50vh] w-full max-w-lg flex-col items-center justify-center space-y-2 text-center",
+        "flex w-full max-w-lg flex-col items-center justify-center space-y-2 text-center",
         className
       )}
       {...props}

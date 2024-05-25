@@ -24,13 +24,15 @@ export default function DashboardPage() {
         <CreateJoinWorkshopDropdown />
       </div>
 
-      <EmptyShell
-        title="No Workshops Available"
-        description="It looks like there are no workshops available at the moment"
-        icon="empty"
-      >
-        <CreateWorkshopButton />
-      </EmptyShell>
+      <Shell variant="centered">
+        <EmptyShell
+          title="No Workshops Available"
+          description="It looks like there are no workshops available at the moment"
+          icon="empty"
+        >
+          <CreateWorkshopButton />
+        </EmptyShell>
+      </Shell>
     </Shell>
   )
 }
