@@ -2,7 +2,7 @@ import { format } from "date-fns"
 import { type UseFormReturn } from "react-hook-form"
 
 import { cn } from "@/lib/utils"
-import { type CreateEditWorkshopSchema } from "@/lib/validations/workshop"
+import { type CreateEditWorkshopSchema } from "@/lib/zod/schemas/workshops"
 
 import { CopyButton } from "../copy-button"
 import { Help } from "../help"
@@ -144,7 +144,7 @@ export function CreateEditWorkshopForm({
 
         <FormField
           control={form.control}
-          name="code"
+          name="accessCode"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Workshop Code</FormLabel>

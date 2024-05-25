@@ -1,8 +1,10 @@
 import { sql } from "drizzle-orm"
 import {
+  boolean,
   index,
   integer,
   pgTable,
+  serial,
   text,
   timestamp,
   varchar,
@@ -34,3 +36,21 @@ export const sessions = pgTable("sessions", {
     mode: "date",
   }).notNull(),
 })
+
+export const workshops = pgTable("workshops", {
+  id: serial("id").notNull().primaryKey(),
+  organizerId: text("organizer_id")
+    .notNull()
+    .references(() => users.id),
+  title: varchar("title", { length: 50 }).notNull(),
+  description: text("description").notNull(),
+  scheduled: timestamp("date").notNull(),
+  duration: integer("duration").notNull(),
+  isPublic: boolean("is_public").default(true).notNull(),
+  accessCode: varchar("access_code", { length: 16 }).unique().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").default(sql`current_timestamp`),
+})
+
+export type Workshop = typeof workshops.$inferSelect
+export type NewWorkshop = typeof workshops.$inferInsert

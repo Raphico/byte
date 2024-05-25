@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils"
 import { getAbsoluteUrl } from "@/utils/get-absolute-url"
 import { Toaster } from "@/components/ui/sonner"
 
-import { Analytics } from "./_components/analytics"
+import { Analytics } from "../lib/loglib/analytics"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),

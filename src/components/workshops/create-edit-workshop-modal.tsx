@@ -1,13 +1,13 @@
 import * as React from "react"
-import { type Workshop } from "@/db/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { generateIdFromEntropySize } from "lucia"
 import { useForm } from "react-hook-form"
 
+import { type Workshop } from "@/lib/drizzle/schema"
 import {
   createEditWorkshopSchema,
   type CreateEditWorkshopSchema,
-} from "@/lib/validations/workshop"
+} from "@/lib/zod/schemas/workshops"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import {
   Dialog,
@@ -43,7 +43,7 @@ export function CreateEditWorkshopModal({
 }) {
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const [isPending, startTransition] = React.useTransition()
-  const workshopCode = generateIdFromEntropySize(10)
+  const accessCode = generateIdFromEntropySize(10)
 
   const form = useForm<CreateEditWorkshopSchema>({
     resolver: zodResolver(createEditWorkshopSchema),
@@ -52,7 +52,7 @@ export function CreateEditWorkshopModal({
       description: "",
       scheduled: undefined,
       duration: 15,
-      code: workshopCode,
+      accessCode,
       isPublic: true,
     },
   })
