@@ -30,9 +30,9 @@ The architecture of this project revolves around a streamlined development and d
 - [x] Add app configuration
 - [x] Add landing page
 - [x] Add auth with lucia
-- [ ] Workshop creation
-- [ ] Interactive workshop session(e.g video conferencing, live chat code editor)
+- [x] Workshop creation
 - [ ] Edit workshop
+- [ ] Interactive workshop session(e.g video conferencing, live chat code editor)
 - [ ] Delete workshop
 - [ ] Participant registration
 - [ ] Join workshops with workshop code

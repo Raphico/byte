@@ -2,12 +2,15 @@ import * as React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { generateIdFromEntropySize } from "lucia"
 import { useForm } from "react-hook-form"
+import { toast } from "sonner"
 
+import { createWorkshopAction } from "@/lib/actions/workshop"
 import { type Workshop } from "@/lib/drizzle/schema"
 import {
   createEditWorkshopSchema,
   type CreateEditWorkshopSchema,
 } from "@/lib/zod/schemas/workshops"
+import { showErrorToast } from "@/utils/handle-error"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import {
   Dialog,
@@ -58,7 +61,17 @@ export function CreateEditWorkshopModal({
   })
 
   const onSubmit = (values: CreateEditWorkshopSchema) => {
-    console.log(values)
+    startTransition(async () => {
+      try {
+        await createWorkshopAction({
+          ...values,
+        })
+
+        toast.success("Workshop created")
+      } catch (err) {
+        showErrorToast(err)
+      }
+    })
   }
 
   if (isDesktop) {
