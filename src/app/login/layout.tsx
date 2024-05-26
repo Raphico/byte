@@ -1,11 +1,22 @@
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
+import { redirects } from "@/config/constants"
+import { validateRequest } from "@/lib/lucia/validate-request"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { DotBg } from "@/components/dot-bg"
 import { Icons } from "@/components/icons"
 
-export default function AuthLayout({ children }: React.PropsWithChildren) {
+export default async function AuthLayout({
+  children,
+}: React.PropsWithChildren) {
+  const { user } = await validateRequest()
+
+  if (user) {
+    redirect(redirects.afterLogin)
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <DotBg />

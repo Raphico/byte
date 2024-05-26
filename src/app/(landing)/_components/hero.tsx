@@ -7,11 +7,10 @@ import { cn } from "@/lib/utils"
 import { badgeVariants } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
-import { Shell } from "@/components/shell"
 
 export function Hero() {
   return (
-    <Shell variant="centered" className="max-w-5xl gap-4">
+    <div className="container flex min-h-[75vh] flex-col items-center justify-center space-y-4">
       <Link
         href={siteConfig.githubLink}
         className={cn(
@@ -39,7 +38,7 @@ export function Hero() {
       </h1>
 
       <p
-        className="mb-1 max-w-lg animate-fade-up text-center text-base text-zinc-400 md:text-lg"
+        className="max-w-lg animate-fade-up text-center text-base text-zinc-400 md:text-lg"
         style={{ animationDelay: "0.30s", animationFillMode: "both" }}
       >
         Plan, organize, and manage virtual workshop sessions
@@ -59,6 +58,6 @@ export function Hero() {
           aria-hidden="true"
         />
       </Link>
-    </Shell>
+    </div>
   )
 }
