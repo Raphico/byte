@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import { GeistSans } from "geist/font/sans"
 
-import { ThemeProvider } from "./_components/theme-provider"
+import { ThemeProvider } from "../components/theme-provider"
 
 import "@/styles/globals.css"
 
