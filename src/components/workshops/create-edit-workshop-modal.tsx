@@ -46,7 +46,7 @@ export function CreateEditWorkshopModal({
 }) {
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const [isPending, startTransition] = React.useTransition()
-  const accessCode = generateIdFromEntropySize(10)
+  const accessCode = generateIdFromEntropySize(5)
 
   const form = useForm<CreateEditWorkshopSchema>({
     resolver: zodResolver(createEditWorkshopSchema),

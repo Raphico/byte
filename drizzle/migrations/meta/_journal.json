@@ -15,6 +15,13 @@
       "when": 1716722147284,
       "tag": "0001_nebulous_maximus",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1716805695234,
+      "tag": "0002_legal_rocket_raccoon",
+      "breakpoints": true
     }
   ]
 }

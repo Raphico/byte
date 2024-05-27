@@ -1,0 +1,1 @@
+ALTER TABLE "workshops" ALTER COLUMN "access_code" SET DATA TYPE varchar(8);

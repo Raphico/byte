@@ -31,8 +31,8 @@ export const createEditWorkshopSchema = z.object({
     .describe("Indicates if the workshop is public or not"),
   accessCode: z
     .string()
-    .min(16)
-    .max(16)
+    .min(8)
+    .max(8)
     .describe("The access code to the workshop"),
   scheduled: z
     .date({
