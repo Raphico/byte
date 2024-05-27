@@ -89,7 +89,10 @@ export function CreateEditWorkshopModal({
           <CreateEditWorkshopForm form={form} onSubmit={onSubmit}>
             <Button type="submit" disabled={isPending}>
               {isPending && (
-                <Icons.spinner className="mr-2 size-4" aria-hidden="true" />
+                <Icons.spinner
+                  className="mr-2 size-4 animate-spin"
+                  aria-hidden="true"
+                />
               )}
               Create Workshop
             </Button>
@@ -117,7 +120,10 @@ export function CreateEditWorkshopModal({
           <CreateEditWorkshopForm form={form} onSubmit={onSubmit}>
             <Button type="submit" disabled={isPending}>
               {isPending && (
-                <Icons.spinner className="mr-2 size-4" aria-hidden="true" />
+                <Icons.spinner
+                  className="mr-2 size-4 animate-spin"
+                  aria-hidden="true"
+                />
               )}
               Create Workshop
             </Button>

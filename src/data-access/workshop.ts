@@ -4,7 +4,7 @@ import { unstable_cache as cache } from "next/cache"
 import { asc, eq } from "drizzle-orm"
 
 import { db } from "@/lib/drizzle"
-import { type NewWorkshop, workshops } from "@/lib/drizzle/schema"
+import { users, workshops, type NewWorkshop } from "@/lib/drizzle/schema"
 
 export async function createWorkshop(
   workshop: Omit<NewWorkshop, "organizerId"> & { userId: string }
@@ -26,17 +26,21 @@ export async function getUserWorkshops(userId: string) {
       return db
         .select({
           id: workshops.id,
-          organizerId: workshops.organizerId,
           title: workshops.title,
+          organizer: {
+            id: users.id,
+            username: users.username,
+            image: users.image,
+          },
           description: workshops.description,
           duration: workshops.duration,
           accessCode: workshops.accessCode,
           scheduled: workshops.scheduled,
           isPublic: workshops.isPublic,
           createdAt: workshops.createdAt,
-          updatedAt: workshops.updatedAt
         })
         .from(workshops)
+        .innerJoin(users, eq(users.id, workshops.organizerId))
         .where(eq(workshops.organizerId, userId))
         .orderBy(asc(workshops.scheduled))
     },
@@ -55,6 +59,11 @@ export async function getWorkshops() {
         .select({
           id: workshops.id,
           title: workshops.title,
+          organizer: {
+            id: users.id,
+            username: users.username,
+            image: users.image,
+          },
           description: workshops.description,
           duration: workshops.duration,
           accessCode: workshops.accessCode,
@@ -63,6 +72,7 @@ export async function getWorkshops() {
           createdAt: workshops.createdAt,
         })
         .from(workshops)
+        .innerJoin(users, eq(users.id, workshops.organizerId))
         .orderBy(asc(workshops.scheduled))
     },
     [`workshops`],

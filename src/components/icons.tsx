@@ -5,6 +5,7 @@ import {
   CircleEllipsis,
   CircleHelp,
   Copy,
+  EllipsisVertical,
   LayoutDashboard,
   Loader2,
   LogOut,
@@ -18,6 +19,7 @@ import {
 } from "lucide-react"
 
 export const Icons = {
+  more: EllipsisVertical,
   help: CircleHelp,
   calendar: Calendar,
   spinner: Loader2,
