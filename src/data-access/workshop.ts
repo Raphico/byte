@@ -72,6 +72,7 @@ export async function getWorkshops() {
           createdAt: workshops.createdAt,
         })
         .from(workshops)
+        .where(eq(workshops.isPublic, true))
         .innerJoin(users, eq(users.id, workshops.organizerId))
         .orderBy(asc(workshops.scheduled))
     },
