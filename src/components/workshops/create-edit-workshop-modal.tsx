@@ -67,7 +67,9 @@ export function CreateEditWorkshopModal({
           ...values,
         })
 
+        setShowCreateEditWorkshopModal(false)
         toast.success("Workshop created")
+        form.reset()
       } catch (err) {
         showErrorToast(err)
       }
