@@ -4,8 +4,8 @@ import { eq } from "drizzle-orm"
 import { generateIdFromEntropySize } from "lucia"
 
 import { redirects } from "@/config/constants"
-import { db } from "@/lib/drizzle"
-import { users } from "@/lib/drizzle/schema"
+import { db } from "@/server/db"
+import { users } from "@/server/db/schema"
 import { github, lucia } from "@/lib/lucia"
 import { type GitHubUser } from "@/lib/types"
 

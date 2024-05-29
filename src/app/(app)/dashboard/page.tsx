@@ -1,9 +1,9 @@
 import { type Metadata } from "next"
 import { redirect } from "next/navigation"
-import { getUserWorkshops } from "@/data-access/workshop"
 import { env } from "@/env"
 
 import { redirects } from "@/config/constants"
+import { getUserWorkshops } from "@/server/data/workshop"
 import { validateRequest } from "@/lib/lucia/validate-request"
 import { EmptyShell } from "@/components/empty-shell"
 import { PageHeader, PageHeaderHeading } from "@/components/page-header"

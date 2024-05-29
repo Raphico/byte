@@ -1,5 +1,4 @@
-import { type getWorkshops } from "@/data-access/workshop"
-
+import { type getWorkshops } from "@/server/data/workshop"
 import { cn } from "@/lib/utils"
 import { formatScheduledDate } from "@/utils/format-scheduled-date"
 

@@ -1,7 +1,7 @@
 import { type Metadata } from "next"
-import { getWorkshops } from "@/data-access/workshop"
 import { env } from "@/env"
 
+import { getWorkshops } from "@/server/data/workshop"
 import { EmptyShell } from "@/components/empty-shell"
 import { PageHeader, PageHeaderHeading } from "@/components/page-header"
 import { Shell } from "@/components/shell"

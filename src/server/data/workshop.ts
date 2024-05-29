@@ -3,8 +3,8 @@ import "server-only"
 import { unstable_cache as cache } from "next/cache"
 import { asc, eq } from "drizzle-orm"
 
-import { db } from "@/lib/drizzle"
-import { users, workshops, type NewWorkshop } from "@/lib/drizzle/schema"
+import { db } from "../db"
+import { users, workshops, type NewWorkshop } from "../db/schema"
 
 export async function createWorkshop(
   workshop: Omit<NewWorkshop, "organizerId"> & { userId: string }

@@ -4,8 +4,8 @@ import { generateIdFromEntropySize } from "lucia"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
-import { createWorkshopAction } from "@/lib/actions/workshop"
-import { type Workshop } from "@/lib/drizzle/schema"
+import { createWorkshopAction } from "@/server/actions/workshop"
+import { type Workshop } from "@/server/db/schema"
 import {
   createEditWorkshopSchema,
   type CreateEditWorkshopSchema,
@@ -62,17 +62,17 @@ export function CreateEditWorkshopModal({
 
   const onSubmit = (values: CreateEditWorkshopSchema) => {
     startTransition(async () => {
-      try {
-        await createWorkshopAction({
-          ...values,
-        })
+      const { error } = await createWorkshopAction({
+        ...values,
+      })
 
-        setShowCreateEditWorkshopModal(false)
-        toast.success("Workshop created")
-        form.reset()
-      } catch (err) {
-        showErrorToast(err)
+      if (error) {
+        showErrorToast(error)
       }
+
+      setShowCreateEditWorkshopModal(false)
+      toast.success("Workshop created")
+      form.reset()
     })
   }
 

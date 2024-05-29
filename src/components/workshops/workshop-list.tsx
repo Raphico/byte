@@ -1,4 +1,4 @@
-import { type getWorkshops } from "@/data-access/workshop"
+import { type getWorkshops } from "@/server/data/workshop"
 
 import { WorkshopCard } from "./workshop-card"
 
