@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { type NavItem } from "@/types"
@@ -19,10 +20,11 @@ interface MobileNavProps {
 }
 
 export function MobileNav({ items }: MobileNavProps) {
+  const [open, setOpen] = React.useState(false)
   const pathname = usePathname()
 
   return (
-    <Drawer>
+    <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button variant="ghost" size="icon" className="size-5 sm:hidden">
           <Icons.menu aria-hidden="true" />
@@ -46,6 +48,7 @@ export function MobileNav({ items }: MobileNavProps) {
                 })}
                 key={item.href}
                 href={item.href}
+                onClick={() => setOpen(false)}
               >
                 {item.title}
               </Link>
