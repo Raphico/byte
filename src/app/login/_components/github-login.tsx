@@ -10,7 +10,7 @@ export function GithubLogin() {
       <h3 className="text-lg font-semibold">Authenticate with Github</h3>
       <Link
         href="/login/github"
-        className={cn(buttonVariants(), "w-full")}
+        className={cn(buttonVariants(), "w-full bg-white hover:bg-white/90")}
         aria-label="Authenticate with Github"
       >
         Authenticate
