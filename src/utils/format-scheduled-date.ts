@@ -41,6 +41,10 @@ export function formatScheduledDate(scheduled: Date) {
   }
 }
 
+export function getExactScheduled(scheduled: Date) {
+  return format(scheduled, "dd, MMMM, yyyy '|' hh:mma")
+}
+
 function isNextWeek(date: Date) {
   const now = new Date()
   const startOfNextWeek = startOfWeek(addWeeks(now, 1), { weekStartsOn: 0 })

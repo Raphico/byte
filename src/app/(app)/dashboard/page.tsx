@@ -10,7 +10,7 @@ import { PageHeader, PageHeaderHeading } from "@/components/page-header"
 import { Shell } from "@/components/shell"
 import { CreateJoinWorkshopDropdown } from "@/components/workshops/create-join-workshop-dropdown"
 import { CreateWorkshopButton } from "@/components/workshops/create-workshop-button"
-import { WorkshopList } from "@/components/workshops/workshop-list"
+import { WorkshopCard } from "@/components/workshops/workshop-card"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -38,7 +38,15 @@ export default async function DashboardPage() {
       </div>
 
       {workshops.length ? (
-        <WorkshopList workshops={workshops} />
+        <section className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {workshops.map((workshop) => (
+            <WorkshopCard
+              key={workshop.id}
+              userId={user.id}
+              workshop={workshop}
+            />
+          ))}
+        </section>
       ) : (
         <Shell variant="centered">
           <EmptyShell

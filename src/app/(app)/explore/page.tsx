@@ -1,13 +1,16 @@
 import { type Metadata } from "next"
+import { redirect } from "next/navigation"
 import { env } from "@/env"
 
+import { redirects } from "@/config/constants"
 import { getWorkshops } from "@/server/data/workshop"
+import { validateRequest } from "@/lib/lucia/validate-request"
 import { EmptyShell } from "@/components/empty-shell"
 import { PageHeader, PageHeaderHeading } from "@/components/page-header"
 import { Shell } from "@/components/shell"
 import { CreateJoinWorkshopDropdown } from "@/components/workshops/create-join-workshop-dropdown"
 import { CreateWorkshopButton } from "@/components/workshops/create-workshop-button"
-import { WorkshopList } from "@/components/workshops/workshop-list"
+import { WorkshopCard } from "@/components/workshops/workshop-card"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
@@ -16,6 +19,12 @@ export const metadata: Metadata = {
 }
 
 export default async function DashboardPage() {
+  const { user } = await validateRequest()
+
+  if (!user) {
+    redirect(redirects.toLogin)
+  }
+
   const workshops = await getWorkshops()
 
   return (
@@ -28,7 +37,15 @@ export default async function DashboardPage() {
         <CreateJoinWorkshopDropdown />
       </div>
       {workshops.length ? (
-        <WorkshopList workshops={workshops} />
+        <section className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {workshops.map((workshop) => (
+            <WorkshopCard
+              key={workshop.id}
+              userId={user.id}
+              workshop={workshop}
+            />
+          ))}
+        </section>
       ) : (
         <Shell variant="centered">
           <EmptyShell
