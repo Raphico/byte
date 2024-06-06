@@ -4,7 +4,6 @@ import { type getWorkshops } from "@/server/data/workshop"
 import { cn } from "@/lib/utils"
 import { formatScheduledDate } from "@/utils/format-scheduled-date"
 
-import { Icons } from "../icons"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { badgeVariants } from "../ui/badge"
 import { Card, CardFooter, CardHeader, CardTitle } from "../ui/card"

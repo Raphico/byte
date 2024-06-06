@@ -34,12 +34,10 @@ import { Icons } from "../icons"
 import { Button } from "../ui/button"
 import { CreateEditWorkshopForm } from "./create-edit-workshop-form"
 
-type CreateEditWorkshopModalProps =
-  | { text: "Create"; workshop: null }
-  | {
-      text: "Update"
-      workshop: Awaited<ReturnType<typeof getWorkshops>>[number]
-    }
+interface CreateEditWorkshopModalProps {
+  text: "Create" | "Update"
+  workshop?: Awaited<ReturnType<typeof getWorkshops>>[number]
+}
 
 export function CreateEditWorkshopModal({
   showCreateEditWorkshopModal,
