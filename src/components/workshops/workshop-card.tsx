@@ -30,10 +30,8 @@ export function WorkshopCard({ userId, workshop }: WorkshopCardProps) {
         className="grid cursor-pointer transition-colors hover:bg-muted"
         onClick={() => setShowWorkshopDetailsModal(true)}
       >
-        <CardHeader className="flex-row justify-between p-4">
+        <CardHeader className="p-4">
           <CardTitle className="max-w-48">{workshop.title}</CardTitle>
-
-          <Icons.more className="size-4" aria-hidden="true" />
         </CardHeader>
         <CardFooter className="p-4">
           <div className="flex w-full items-center justify-between">

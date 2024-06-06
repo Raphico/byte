@@ -4,12 +4,16 @@ import { generateIdFromEntropySize } from "lucia"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
-import { createWorkshopAction } from "@/server/actions/workshop"
-import { type Workshop } from "@/server/db/schema"
+import {
+  createWorkshopAction,
+  updateWorkshopAction,
+} from "@/server/actions/workshop"
+import { type getWorkshops } from "@/server/data/workshop"
 import {
   createEditWorkshopSchema,
   type CreateEditWorkshopSchema,
 } from "@/lib/zod/schemas/workshops"
+import { convertScheduledToDate } from "@/utils/format-scheduled-date"
 import { showErrorToast } from "@/utils/handle-error"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import {
@@ -30,10 +34,12 @@ import { Icons } from "../icons"
 import { Button } from "../ui/button"
 import { CreateEditWorkshopForm } from "./create-edit-workshop-form"
 
-interface CreateEditWorkshopModalProps {
-  workshop?: Workshop
-  text: "Create" | "Edit"
-}
+type CreateEditWorkshopModalProps =
+  | { text: "Create"; workshop: null }
+  | {
+      text: "Update"
+      workshop: Awaited<ReturnType<typeof getWorkshops>>[number]
+    }
 
 export function CreateEditWorkshopModal({
   showCreateEditWorkshopModal,
@@ -44,34 +50,41 @@ export function CreateEditWorkshopModal({
   setShowCreateEditWorkshopModal: React.Dispatch<React.SetStateAction<boolean>>
   props: CreateEditWorkshopModalProps
 }) {
+  const { workshop } = props
+
   const isDesktop = useMediaQuery("(min-width: 768px)")
   const [isPending, startTransition] = React.useTransition()
-  const accessCode = generateIdFromEntropySize(5)
 
   const form = useForm<CreateEditWorkshopSchema>({
     resolver: zodResolver(createEditWorkshopSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      scheduled: undefined,
-      duration: 15,
-      accessCode,
-      isPublic: true,
+      title: workshop?.title ?? "",
+      description: workshop?.description ?? "",
+      scheduled:
+        workshop?.scheduled && convertScheduledToDate(workshop.scheduled),
+      duration: workshop?.duration ?? 15,
+      accessCode: workshop?.accessCode ?? generateIdFromEntropySize(5),
+      isPublic: workshop?.isPublic ?? true,
     },
   })
 
   const onSubmit = (values: CreateEditWorkshopSchema) => {
     startTransition(async () => {
-      const { error } = await createWorkshopAction({
-        ...values,
-      })
+      const { error } = workshop
+        ? await updateWorkshopAction({
+            id: workshop.id,
+            ...values,
+          })
+        : await createWorkshopAction({
+            ...values,
+          })
 
       if (error) {
         showErrorToast(error)
       }
 
       setShowCreateEditWorkshopModal(false)
-      toast.success("Workshop created")
+      toast.success(`Workshop ${workshop ? "Updated" : "Created"}`)
       form.reset()
     })
   }
@@ -96,7 +109,7 @@ export function CreateEditWorkshopModal({
                   aria-hidden="true"
                 />
               )}
-              Create Workshop
+              {props.text} Workshop
             </Button>
           </CreateEditWorkshopForm>
         </DialogContent>
@@ -127,7 +140,7 @@ export function CreateEditWorkshopModal({
                   aria-hidden="true"
                 />
               )}
-              Create Workshop
+              {props.text} Workshop
             </Button>
           </CreateEditWorkshopForm>
         </div>
