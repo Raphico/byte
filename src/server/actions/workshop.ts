@@ -73,3 +73,28 @@ export async function updateWorkshopAction(
     }
   }
 }
+
+export async function deleteWorkshopAction(id: number) {
+  try {
+    const { user } = await validateRequest()
+
+    if (!user) {
+      throw new Error("User not found")
+    }
+
+    await db
+      .delete(workshops)
+      .where(and(eq(workshops.organizerId, user.id), eq(workshops.id, id)))
+
+    revalidateTag(`workshops-${user.id}`)
+    revalidateTag(`workshops`)
+
+    return {
+      error: null,
+    }
+  } catch (err) {
+    return {
+      error: getErrorMessage(err),
+    }
+  }
+}

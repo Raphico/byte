@@ -33,7 +33,7 @@ The architecture of this project revolves around a streamlined development and d
 - [x] Workshop creation
 - [x] Edit workshop
 - [ ] Interactive workshop session(e.g video conferencing, live chat code editor)
-- [ ] Delete workshop
+- [x] Delete workshop
 - [ ] Participant registration
 - [ ] Join workshops with workshop code
 - [ ] Complete workshop & dashboard page
