@@ -8,7 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { Button } from "../ui/button"
 import { Separator } from "../ui/separator"
 import { useCreateEditWorkshopModal } from "./create-edit-workshop-modal"
-import { useDeleteWorkshopAlertModal } from "./delete-workshop-modal"
+import { useDeleteWorkshopAlert } from "./delete-workshop-alert"
 
 interface WorkshopDetailsProps extends React.HTMLAttributes<HTMLDivElement> {
   isCurrentUserWorkshop: boolean
@@ -27,8 +27,8 @@ export function WorkshopDetails({
       workshop,
     })
 
-  const { DeleteWorkshopAlertModal, setShowDeleteWorkshopAlertModal } =
-    useDeleteWorkshopAlertModal({
+  const { DeleteWorkshopAlert, setShowDeleteWorkshopAlert } =
+    useDeleteWorkshopAlert({
       id: workshop.id,
     })
 
@@ -37,7 +37,7 @@ export function WorkshopDetails({
   return (
     <>
       <CreateEditWorkshopModal />
-      <DeleteWorkshopAlertModal />
+      <DeleteWorkshopAlert />
       <div className={cn("space-y-4", className)} {...props}>
         <div className="flex flex-col items-start space-y-1">
           <div className="flex items-center gap-2">
@@ -111,7 +111,7 @@ export function WorkshopDetails({
                 </Button>
                 <Button
                   onClick={() => {
-                    setShowDeleteWorkshopAlertModal(true)
+                    setShowDeleteWorkshopAlert(true)
                   }}
                   variant="destructive"
                   size="icon"

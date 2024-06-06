@@ -4,7 +4,6 @@ import { toast } from "sonner"
 import { deleteWorkshopAction } from "@/server/actions/workshop"
 import { showErrorToast } from "@/utils/handle-error"
 
-import { Icons } from "../icons"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,21 +15,22 @@ import {
   AlertDialogTitle,
 } from "../ui/alert-dialog"
 
-interface DeleteWorkshopAlertModalProps {
+interface DeleteWorkshopAlertProps {
   id: number
 }
 
-export function DeleteWorkshopAlertModal({
-  showDeleteWorkshopAlertModal,
-  setShowDeleteWorkshopAlertModal,
+export function DeleteWorkshopAlert({
+  showDeleteWorkshopAlert,
+  setShowDeleteWorkshopAlert,
   props,
 }: {
-  showDeleteWorkshopAlertModal: boolean
-  setShowDeleteWorkshopAlertModal: React.Dispatch<React.SetStateAction<boolean>>
-  props: DeleteWorkshopAlertModalProps
+  showDeleteWorkshopAlert: boolean
+  setShowDeleteWorkshopAlert: React.Dispatch<React.SetStateAction<boolean>>
+  props: DeleteWorkshopAlertProps
 }) {
   const idAsNumber = Number(props.id)
-  const [_, startTransition] = React.useState()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, startTransition] = React.useTransition()
 
   const deleteWorkshop = () => {
     startTransition(async () => {
@@ -46,8 +46,8 @@ export function DeleteWorkshopAlertModal({
 
   return (
     <AlertDialog
-      open={showDeleteWorkshopAlertModal}
-      onOpenChange={setShowDeleteWorkshopAlertModal}
+      open={showDeleteWorkshopAlert}
+      onOpenChange={setShowDeleteWorkshopAlert}
     >
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -68,29 +68,27 @@ export function DeleteWorkshopAlertModal({
   )
 }
 
-export function useDeleteWorkshopAlertModal(
-  props: DeleteWorkshopAlertModalProps
-) {
-  const [showDeleteWorkshopAlertModal, setShowDeleteWorkshopAlertModal] =
+export function useDeleteWorkshopAlert(props: DeleteWorkshopAlertProps) {
+  const [showDeleteWorkshopAlert, setShowDeleteWorkshopAlert] =
     React.useState(false)
 
-  const DeleteWorkshopAlertModalCallback = React.useCallback(
+  const DeleteWorkshopAlertCallback = React.useCallback(
     () => (
-      <DeleteWorkshopAlertModal
-        showDeleteWorkshopAlertModal={showDeleteWorkshopAlertModal}
-        setShowDeleteWorkshopAlertModal={setShowDeleteWorkshopAlertModal}
+      <DeleteWorkshopAlert
+        showDeleteWorkshopAlert={showDeleteWorkshopAlert}
+        setShowDeleteWorkshopAlert={setShowDeleteWorkshopAlert}
         props={props}
       />
     ),
-    [showDeleteWorkshopAlertModal, props]
+    [showDeleteWorkshopAlert, props]
   )
 
   return React.useMemo(
     () => ({
-      showDeleteWorkshopAlertModal,
-      setShowDeleteWorkshopAlertModal,
-      DeleteWorkshopAlertModal: DeleteWorkshopAlertModalCallback,
+      showDeleteWorkshopAlert,
+      setShowDeleteWorkshopAlert,
+      DeleteWorkshopAlert: DeleteWorkshopAlertCallback,
     }),
-    [DeleteWorkshopAlertModalCallback, showDeleteWorkshopAlertModal]
+    [DeleteWorkshopAlertCallback, showDeleteWorkshopAlert]
   )
 }
