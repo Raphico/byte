@@ -3,7 +3,7 @@
 import { type User } from "lucia"
 import { toast } from "sonner"
 
-import { logout } from "@/lib/lucia/actions"
+import { logout } from "@/server/actions/user"
 import { showErrorToast } from "@/utils/handle-error"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"

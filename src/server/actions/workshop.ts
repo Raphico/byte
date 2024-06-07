@@ -3,7 +3,7 @@
 import { revalidateTag } from "next/cache"
 import { and, eq } from "drizzle-orm"
 
-import { validateRequest } from "@/lib/lucia/validate-request"
+import { getUserSession } from "@/server/data/user"
 import { type CreateEditWorkshopSchema } from "@/lib/zod/schemas/workshops"
 import { getErrorMessage } from "@/utils/handle-error"
 
@@ -12,7 +12,7 @@ import { workshops } from "../db/schema"
 
 export async function createWorkshopAction(input: CreateEditWorkshopSchema) {
   try {
-    const { user } = await validateRequest()
+    const { user } = await getUserSession()
 
     if (!user) {
       throw new Error("User not found")
@@ -42,7 +42,7 @@ export async function updateWorkshopAction(
   }
 ) {
   try {
-    const { user } = await validateRequest()
+    const { user } = await getUserSession()
 
     if (!user) {
       throw new Error("User not found")
@@ -76,7 +76,7 @@ export async function updateWorkshopAction(
 
 export async function deleteWorkshopAction(id: number) {
   try {
-    const { user } = await validateRequest()
+    const { user } = await getUserSession()
 
     if (!user) {
       throw new Error("User not found")

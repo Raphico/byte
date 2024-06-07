@@ -6,7 +6,7 @@ import { Lucia } from "lucia"
 import { db } from "@/server/db"
 import { sessions, users } from "@/server/db/schema"
 
-import { type DatabaseUserAttributes } from "../types"
+import { type DatabaseUserAttributes } from "./types"
 
 const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users)
 

@@ -2,7 +2,7 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 
 import { redirects } from "@/config/constants"
-import { validateRequest } from "@/lib/lucia/validate-request"
+import { getUserSession } from "@/server/data/user"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { DotBg } from "@/components/dot-bg"
@@ -11,7 +11,7 @@ import { Icons } from "@/components/icons"
 export default async function AuthLayout({
   children,
 }: React.PropsWithChildren) {
-  const { user } = await validateRequest()
+  const { user } = await getUserSession()
 
   if (user) {
     redirect(redirects.afterLogin)

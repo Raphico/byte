@@ -3,8 +3,8 @@ import { redirect } from "next/navigation"
 import { env } from "@/env"
 
 import { redirects } from "@/config/constants"
+import { getUserSession } from "@/server/data/user"
 import { getWorkshops } from "@/server/data/workshop"
-import { validateRequest } from "@/lib/lucia/validate-request"
 import { EmptyShell } from "@/components/empty-shell"
 import { PageHeader, PageHeaderHeading } from "@/components/page-header"
 import { Shell } from "@/components/shell"
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 }
 
 export default async function DashboardPage() {
-  const { user } = await validateRequest()
+  const { user } = await getUserSession()
 
   if (!user) {
     redirect(redirects.toLogin)

@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation"
 
 import { redirects } from "@/config/constants"
-import { validateRequest } from "@/lib/lucia/validate-request"
+import { getUserSession } from "@/server/data/user"
 
 import { Header } from "./_components/header"
 
 export default async function AppLayout({ children }: React.PropsWithChildren) {
-  const { user } = await validateRequest()
+  const { user } = await getUserSession()
 
   if (!user) {
     redirect(redirects.toLogin)

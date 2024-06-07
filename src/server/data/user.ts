@@ -2,9 +2,9 @@ import { cache } from "react"
 import { cookies } from "next/headers"
 import type { Session, User } from "lucia"
 
-import { lucia } from "."
+import { lucia } from "@/lib/lucia"
 
-export const validateRequest = cache(
+export const getUserSession = cache(
   async (): Promise<
     { user: User; session: Session } | { user: null; session: null }
   > => {

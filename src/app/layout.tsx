@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import { GeistSans } from "geist/font/sans"
 
-import { ThemeProvider } from "../components/theme-provider"
+import { ThemeProvider } from "./_components/theme-provider"
 
 import "@/styles/globals.css"
 
@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils"
 import { getAbsoluteUrl } from "@/utils/get-absolute-url"
 import { Toaster } from "@/components/ui/sonner"
 
-import { Analytics } from "../lib/loglib/analytics"
+import { Analytics } from "./_components/analytics"
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),

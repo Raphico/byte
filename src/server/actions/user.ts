@@ -4,12 +4,12 @@ import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
 import { redirects } from "@/config/constants"
+import { lucia } from "@/lib/lucia"
 
-import { lucia } from "."
-import { validateRequest } from "./validate-request"
+import { getUserSession } from "../data/user"
 
 export async function logout() {
-  const { session } = await validateRequest()
+  const { session } = await getUserSession()
 
   if (!session) {
     throw new Error("No session found")
