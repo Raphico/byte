@@ -20,7 +20,8 @@
     "db:push": "dotenv drizzle-kit push:pg",
     "db:migrate": "dotenv tsx src/server/db/migrate.ts",
     "db:drop-migration": "drizzle-kit drop",
-    "db:studio": "dotenv drizzle-kit studio"
+    "db:studio": "dotenv drizzle-kit studio",
+    "email:dev": "email dev --dir src/components/emails -p 3001"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.4.2",
@@ -35,6 +36,7 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
+    "@react-email/components": "0.0.19",
     "@t3-oss/env-nextjs": "^0.10.1",
     "arctic": "^1.8.1",
     "class-variance-authority": "^0.7.0",
@@ -51,8 +53,10 @@
     "react": "^18",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",
+    "react-email": "2.1.4",
     "react-hook-form": "^7.51.5",
     "react-wrap-balancer": "^1.1.0",
+    "resend": "^3.2.0",
     "server-only": "^0.0.1",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",

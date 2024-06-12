@@ -22,7 +22,7 @@ export const users = pgTable(
     updatedAt: timestamp("updated_at").default(sql`current_timestamp`),
   },
   (t) => ({
-    discordIdx: index("user_github_idx").on(t.githubId),
+    githubIdx: index("user_github_idx").on(t.githubId),
   })
 )
 
@@ -54,3 +54,19 @@ export const workshops = pgTable("workshops", {
 
 export type Workshop = typeof workshops.$inferSelect
 export type NewWorkshop = typeof workshops.$inferInsert
+
+export const registrations = pgTable("registrations", {
+  registrationId: serial("registration_id").notNull().primaryKey(),
+  workshopId: integer("workshop_id")
+    .notNull()
+    .unique()
+    .references(() => workshops.id),
+  participantId: text("participant_id")
+    .notNull()
+    .unique()
+    .references(() => users.id),
+  registeredAt: timestamp("registered_at").defaultNow().notNull(),
+})
+
+export const NewRegistration = typeof registrations.$inferInsert
+export const Registration = typeof registrations.$inferSelect

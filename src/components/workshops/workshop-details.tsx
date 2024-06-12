@@ -1,6 +1,11 @@
+import * as React from "react"
+import { toast } from "sonner"
+
+import { addParticipantAction } from "@/server/actions/registration"
 import { type getWorkshops } from "@/server/data/workshop"
 import { cn } from "@/lib/utils"
 import { getExactScheduled } from "@/utils/format-scheduled-date"
+import { getErrorMessage, showErrorToast } from "@/utils/handle-error"
 
 import { CopyButton } from "../copy-button"
 import { Icons } from "../icons"
@@ -11,16 +16,18 @@ import { useCreateEditWorkshopModal } from "./create-edit-workshop-modal"
 import { useDeleteWorkshopAlert } from "./delete-workshop-alert"
 
 interface WorkshopDetailsProps extends React.HTMLAttributes<HTMLDivElement> {
-  isCurrentUserWorkshop: boolean
+  userId: string
   workshop: Awaited<ReturnType<typeof getWorkshops>>[number]
 }
 
 export function WorkshopDetails({
+  userId,
   workshop,
-  isCurrentUserWorkshop,
   className,
   ...props
 }: WorkshopDetailsProps) {
+  const [isPending, startTransition] = React.useTransition()
+
   const { CreateEditWorkshopModal, setShowCreateEditWorkshopModal } =
     useCreateEditWorkshopModal({
       text: "Update",
@@ -31,6 +38,36 @@ export function WorkshopDetails({
     useDeleteWorkshopAlert({
       id: workshop.id,
     })
+
+  const addParticipant = () => {
+    startTransition(async () => {
+      const { error } = await addParticipantAction({
+        workshopId: workshop.id,
+        participantId: userId,
+      })
+
+      if (error) {
+        showErrorToast(error)
+      }
+
+      toast.success("Registration successful")
+
+      try {
+        await fetch("/api/email/new-participant", {
+          method: "POST",
+          body: JSON.stringify({
+            email: workshop.organizer.email,
+            organizerUsername: workshop.organizer.username,
+            workshopTitle: workshop.title,
+          }),
+        })
+      } catch (error) {
+        console.error(getErrorMessage(error))
+      }
+    })
+  }
+
+  const isCurrentUserWorkshop = workshop.organizer.id === userId
 
   const organizerUsernameInitial = workshop.organizer.username.charAt(0)
 
@@ -122,7 +159,24 @@ export function WorkshopDetails({
               </>
             )}
           </div>
-          {!isCurrentUserWorkshop && <Button size="sm">Register</Button>}
+          {isCurrentUserWorkshop ? (
+            <Button
+              type="submit"
+              size="sm"
+              disabled={isPending}
+              onClick={addParticipant}
+            >
+              {isPending && (
+                <Icons.spinner
+                  className="mr-2 size-4 animate-spin"
+                  aria-hidden="true"
+                />
+              )}
+              Register
+            </Button>
+          ) : (
+            <Button size="sm">Start</Button>
+          )}
         </div>
       </div>
     </>

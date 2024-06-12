@@ -37,7 +37,7 @@ export async function createWorkshopAction(input: CreateEditWorkshopSchema) {
 }
 
 export async function updateWorkshopAction(
-  input: CreateEditWorkshopSchema & {
+  input: Omit<CreateEditWorkshopSchema, "accessCode"> & {
     id: number
   }
 ) {

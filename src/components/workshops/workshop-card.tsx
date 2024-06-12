@@ -26,7 +26,7 @@ export function WorkshopCard({ userId, workshop }: WorkshopCardProps) {
     <>
       <WorkshopDetailsModal />
       <Card
-        className="grid cursor-pointer transition-colors hover:bg-muted"
+        className="grid size-full cursor-pointer transition-colors hover:bg-muted"
         onClick={() => setShowWorkshopDetailsModal(true)}
       >
         <CardHeader className="p-4">

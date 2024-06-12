@@ -32,8 +32,6 @@ export function WorkshopDetailsModal({
 
   const isDesktop = useMediaQuery("(min-width: 768px)")
 
-  const isCurrentUserWorkshop = workshop.organizer.id === userId
-
   if (isDesktop) {
     return (
       <Dialog
@@ -45,10 +43,7 @@ export function WorkshopDetailsModal({
             <DialogTitle className="text-3xl">{workshop.title}</DialogTitle>
           </DialogHeader>
 
-          <WorkshopDetails
-            isCurrentUserWorkshop={isCurrentUserWorkshop}
-            workshop={workshop}
-          />
+          <WorkshopDetails userId={userId} workshop={workshop} />
         </DialogContent>
       </Dialog>
     )
@@ -71,7 +66,7 @@ export function WorkshopDetailsModal({
         </DrawerHeader>
 
         <WorkshopDetails
-          isCurrentUserWorkshop={isCurrentUserWorkshop}
+          userId={userId}
           workshop={workshop}
           className="p-4 pt-1.5"
         />
