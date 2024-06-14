@@ -16,7 +16,7 @@ import {
 } from "../ui/alert-dialog"
 
 interface DeleteWorkshopAlertProps {
-  id: number
+  id: string
 }
 
 export function DeleteWorkshopAlert({
@@ -28,13 +28,12 @@ export function DeleteWorkshopAlert({
   setShowDeleteWorkshopAlert: React.Dispatch<React.SetStateAction<boolean>>
   props: DeleteWorkshopAlertProps
 }) {
-  const idAsNumber = Number(props.id)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, startTransition] = React.useTransition()
 
   const deleteWorkshop = () => {
     startTransition(async () => {
-      const { error } = await deleteWorkshopAction(idAsNumber)
+      const { error } = await deleteWorkshopAction(props.id)
 
       if (error) {
         showErrorToast(error)

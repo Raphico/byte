@@ -9,7 +9,7 @@ import { db } from "../db"
 import { registrations } from "../db/schema"
 
 export async function addParticipantAction(input: {
-  workshopId: number
+  workshopId: string
   participantId: string
 }) {
   try {

@@ -4,16 +4,17 @@ import {
   index,
   integer,
   pgTable,
-  serial,
   text,
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core"
 
+import { generateId } from "@/lib/id"
+
 export const users = pgTable(
   "users",
   {
-    id: text("id").notNull().primaryKey(),
+    id: varchar("id", { length: 30 }).notNull().primaryKey(),
     username: varchar("name", { length: 50 }).notNull(),
     githubId: integer("github_id").notNull().unique(),
     email: varchar("email", { length: 50 }).notNull(),
@@ -28,7 +29,7 @@ export const users = pgTable(
 
 export const sessions = pgTable("sessions", {
   id: text("id").primaryKey(),
-  userId: text("user_id")
+  userId: varchar("user_id", { length: 30 })
     .notNull()
     .references(() => users.id),
   expiresAt: timestamp("expires_at", {
@@ -38,8 +39,10 @@ export const sessions = pgTable("sessions", {
 })
 
 export const workshops = pgTable("workshops", {
-  id: serial("id").notNull().primaryKey(),
-  organizerId: text("organizer_id")
+  id: varchar("id", { length: 30 })
+    .$defaultFn(() => generateId())
+    .primaryKey(),
+  organizerId: varchar("organizer_id", { length: 30 })
     .notNull()
     .references(() => users.id),
   title: varchar("title", { length: 50 }).notNull(),
@@ -56,17 +59,19 @@ export type Workshop = typeof workshops.$inferSelect
 export type NewWorkshop = typeof workshops.$inferInsert
 
 export const registrations = pgTable("registrations", {
-  registrationId: serial("registration_id").notNull().primaryKey(),
-  workshopId: integer("workshop_id")
+  id: varchar("id", { length: 30 })
+    .$defaultFn(() => generateId())
+    .primaryKey(),
+  workshopId: varchar("workshop_id", { length: 30 })
     .notNull()
     .unique()
-    .references(() => workshops.id),
-  participantId: text("participant_id")
+    .references(() => workshops.id, { onDelete: "cascade" }),
+  participantId: varchar("participant_id", { length: 30 })
     .notNull()
     .unique()
     .references(() => users.id),
   registeredAt: timestamp("registered_at").defaultNow().notNull(),
 })
 
-export const NewRegistration = typeof registrations.$inferInsert
-export const Registration = typeof registrations.$inferSelect
+export type NewRegistration = typeof registrations.$inferInsert
+export type Registration = typeof registrations.$inferSelect

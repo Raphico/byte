@@ -38,7 +38,7 @@ export async function createWorkshopAction(input: CreateEditWorkshopSchema) {
 
 export async function updateWorkshopAction(
   input: Omit<CreateEditWorkshopSchema, "accessCode"> & {
-    id: number
+    id: string
   }
 ) {
   try {
@@ -74,7 +74,7 @@ export async function updateWorkshopAction(
   }
 }
 
-export async function deleteWorkshopAction(id: number) {
+export async function deleteWorkshopAction(id: string) {
   try {
     const { user } = await getUserSession()
 
