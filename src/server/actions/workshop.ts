@@ -24,7 +24,6 @@ export async function createWorkshopAction(input: CreateEditWorkshopSchema) {
     })
 
     revalidateTag(`workshops-${user.id}`)
-    revalidateTag(`workshops`)
 
     return {
       error: null,
@@ -62,7 +61,6 @@ export async function updateWorkshopAction(
       )
 
     revalidateTag(`workshops-${user.id}`)
-    revalidateTag(`workshops`)
 
     return {
       error: null,

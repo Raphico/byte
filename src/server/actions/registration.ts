@@ -29,7 +29,6 @@ export async function addParticipantAction(input: {
     })
 
     revalidateTag(`workshops-${input.participantId}`)
-    revalidateTag(`workshops`)
 
     return {
       error: null,

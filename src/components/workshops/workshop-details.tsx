@@ -159,7 +159,7 @@ export function WorkshopDetails({
               </>
             )}
           </div>
-          {isCurrentUserWorkshop ? (
+          {!isCurrentUserWorkshop ? (
             <Button
               type="submit"
               size="sm"
