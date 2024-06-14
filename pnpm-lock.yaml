@@ -67,16 +67,19 @@ importers:
         version: 0.30.10(@types/react@18.3.1)(pg@8.11.5)(postgres@3.4.4)(react@18.3.1)
       geist:
         specifier: ^1.3.0
-        version: 1.3.0(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+        version: 1.3.0(next@14.2.3(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       lucia:
         specifier: ^3.2.0
         version: 3.2.0
       lucide-react:
         specifier: ^0.378.0
         version: 0.378.0(react@18.3.1)
+      nanoid:
+        specifier: ^5.0.7
+        version: 5.0.7
       next:
         specifier: 14.2.3
-        version: 14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 14.2.3(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-themes:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3598,6 +3601,11 @@ packages:
   nanoid@3.3.7:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+
+  nanoid@5.0.7:
+    resolution: {integrity: sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==}
+    engines: {node: ^18 || >=20}
     hasBin: true
 
   natural-compare@1.4.0:
@@ -7521,9 +7529,9 @@ snapshots:
 
   functions-have-names@1.2.3: {}
 
-  geist@1.3.0(next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)):
+  geist@1.3.0(next@14.2.3(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)):
     dependencies:
-      next: 14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      next: 14.2.3(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   gensync@1.0.0-beta.2: {}
 
@@ -8029,6 +8037,8 @@ snapshots:
 
   nanoid@3.3.7: {}
 
+  nanoid@5.0.7: {}
+
   natural-compare@1.4.0: {}
 
   negotiator@0.6.3: {}
@@ -8067,7 +8077,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  next@14.2.3(@babel/core@7.24.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  next@14.2.3(@babel/core@7.24.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@next/env': 14.2.3
       '@swc/helpers': 0.5.5
@@ -8077,7 +8087,7 @@ snapshots:
       postcss: 8.4.31
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      styled-jsx: 5.1.1(@babel/core@7.24.4)(react@18.3.1)
+      styled-jsx: 5.1.1(@babel/core@7.24.5)(react@18.3.1)
     optionalDependencies:
       '@next/swc-darwin-arm64': 14.2.3
       '@next/swc-darwin-x64': 14.2.3
@@ -8761,13 +8771,6 @@ snapshots:
 
   strip-json-comments@3.1.1: {}
 
-  styled-jsx@5.1.1(@babel/core@7.24.4)(react@18.3.1):
-    dependencies:
-      client-only: 0.0.1
-      react: 18.3.1
-    optionalDependencies:
-      '@babel/core': 7.24.4
-
   styled-jsx@5.1.1(@babel/core@7.24.5)(react@18.3.1):
     dependencies:
       client-only: 0.0.1
@@ -8871,7 +8874,7 @@ snapshots:
 
   tapable@2.2.1: {}
 
-  terser-webpack-plugin@5.3.10(@swc/core@1.3.101(@swc/helpers@0.5.5))(esbuild@0.19.11)(webpack@5.92.0(@swc/core@1.3.101(@swc/helpers@0.5.5))(esbuild@0.19.11)):
+  terser-webpack-plugin@5.3.10(@swc/core@1.3.101(@swc/helpers@0.5.5))(esbuild@0.19.11)(webpack@5.92.0(esbuild@0.19.12)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
@@ -9062,7 +9065,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(@swc/core@1.3.101(@swc/helpers@0.5.5))(esbuild@0.19.11)(webpack@5.92.0(@swc/core@1.3.101(@swc/helpers@0.5.5))(esbuild@0.19.11))
+      terser-webpack-plugin: 5.3.10(@swc/core@1.3.101(@swc/helpers@0.5.5))(esbuild@0.19.11)(webpack@5.92.0(esbuild@0.19.12))
       watchpack: 2.4.1
       webpack-sources: 3.2.3
     transitivePeerDependencies:

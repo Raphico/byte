@@ -1,6 +1,5 @@
 import * as React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { generateIdFromEntropySize } from "lucia"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
@@ -9,6 +8,7 @@ import {
   updateWorkshopAction,
 } from "@/server/actions/workshop"
 import { type getWorkshops } from "@/server/data/workshop"
+import { generateId } from "@/lib/id"
 import {
   createEditWorkshopSchema,
   type CreateEditWorkshopSchema,
@@ -61,7 +61,7 @@ export function CreateEditWorkshopModal({
       scheduled:
         workshop?.scheduled && convertScheduledToDate(workshop.scheduled),
       duration: workshop?.duration ?? 15,
-      accessCode: workshop?.accessCode ?? generateIdFromEntropySize(5),
+      accessCode: workshop?.accessCode ?? generateId(8),
       isPublic: workshop?.isPublic ?? true,
     },
   })
