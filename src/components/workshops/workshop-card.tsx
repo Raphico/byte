@@ -1,34 +1,20 @@
-"use client"
+import Link from "next/link"
 
 import { type getWorkshops } from "@/server/data/workshop"
 import { cn } from "@/lib/utils"
 import { formatScheduledDate } from "@/utils/format-scheduled-date"
 
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { badgeVariants } from "../ui/badge"
 import { Card, CardFooter, CardHeader, CardTitle } from "../ui/card"
-import { useWorkshopDetailsModal } from "./workshop-details-modal"
 
 interface WorkshopCardProps {
-  userId: string
   workshop: Awaited<ReturnType<typeof getWorkshops>>[number]
 }
 
-export function WorkshopCard({ userId, workshop }: WorkshopCardProps) {
-  const organizerUsernameInitial = workshop.organizer.username.charAt(0)
-  const { setShowWorkshopDetailsModal, WorkshopDetailsModal } =
-    useWorkshopDetailsModal({
-      userId,
-      workshop,
-    })
-
+export function WorkshopCard({ workshop }: WorkshopCardProps) {
   return (
-    <>
-      <WorkshopDetailsModal />
-      <Card
-        className="grid size-full cursor-pointer transition-colors hover:bg-muted"
-        onClick={() => setShowWorkshopDetailsModal(true)}
-      >
+    <Link href={`/workshop/${workshop.id}`}>
+      <Card className="grid size-full">
         <CardHeader className="p-4">
           <CardTitle className="max-w-48">{workshop.title}</CardTitle>
         </CardHeader>
@@ -41,17 +27,9 @@ export function WorkshopCard({ userId, workshop }: WorkshopCardProps) {
 
               <p className="text-sm">{workshop.duration} mins</p>
             </div>
-
-            <Avatar className="size-8 bg-muted">
-              {workshop.organizer.image ? (
-                <AvatarImage src={workshop.organizer.image} />
-              ) : (
-                <AvatarFallback>{organizerUsernameInitial}</AvatarFallback>
-              )}
-            </Avatar>
           </div>
         </CardFooter>
       </Card>
-    </>
+    </Link>
   )
 }

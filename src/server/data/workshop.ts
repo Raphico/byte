@@ -4,10 +4,52 @@ import {
   unstable_cache as cache,
   unstable_noStore as noStore,
 } from "next/cache"
-import { asc, eq } from "drizzle-orm"
+import { and, asc, eq, ne } from "drizzle-orm"
 
 import { db } from "../db"
-import { users, workshops } from "../db/schema"
+import { registrations, users, workshops } from "../db/schema"
+
+export async function getWorkshop(workshopId: string) {
+  try {
+    return db.query.workshops.findFirst({
+      columns: {
+        id: true,
+        title: true,
+        description: true,
+        duration: true,
+        accessCode: true,
+        scheduled: true,
+        isPublic: true,
+        createdAt: true,
+      },
+      with: {
+        users: true,
+      },
+      where: eq(workshops.id, workshopId),
+    })
+  } catch (err) {
+    return null
+  }
+}
+
+export async function getOtherWorkshops(workshopId: string) {
+  noStore()
+  try {
+    return db
+      .select({
+        id: workshops.id,
+        title: workshops.title,
+        duration: workshops.duration,
+        scheduled: workshops.scheduled,
+      })
+      .from(workshops)
+      .where(and(ne(workshops.id, workshopId), eq(workshops.isPublic, true)))
+      .innerJoin(users, eq(users.id, workshops.organizerId))
+      .orderBy(asc(workshops.scheduled))
+  } catch (err) {
+    return []
+  }
+}
 
 export async function getUserWorkshops(userId: string) {
   return await cache(
@@ -16,21 +58,10 @@ export async function getUserWorkshops(userId: string) {
         .select({
           id: workshops.id,
           title: workshops.title,
-          organizer: {
-            id: users.id,
-            username: users.username,
-            image: users.image,
-            email: users.email,
-          },
-          description: workshops.description,
           duration: workshops.duration,
-          accessCode: workshops.accessCode,
           scheduled: workshops.scheduled,
-          isPublic: workshops.isPublic,
-          createdAt: workshops.createdAt,
         })
         .from(workshops)
-        .innerJoin(users, eq(users.id, workshops.organizerId))
         .where(eq(workshops.organizerId, userId))
         .orderBy(asc(workshops.scheduled))
     },
@@ -49,23 +80,28 @@ export async function getWorkshops() {
       .select({
         id: workshops.id,
         title: workshops.title,
-        organizer: {
-          id: users.id,
-          username: users.username,
-          image: users.image,
-          email: users.email,
-        },
-        description: workshops.description,
         duration: workshops.duration,
-        accessCode: workshops.accessCode,
         scheduled: workshops.scheduled,
-        isPublic: workshops.isPublic,
-        createdAt: workshops.createdAt,
       })
       .from(workshops)
       .where(eq(workshops.isPublic, true))
-      .innerJoin(users, eq(users.id, workshops.organizerId))
       .orderBy(asc(workshops.scheduled))
+  } catch (err) {
+    return []
+  }
+}
+
+export async function getWorkshopRegistrants(workshopId: string) {
+  noStore()
+  try {
+    return await db
+      .select({
+        id: users.id,
+        image: users.image,
+      })
+      .from(registrations)
+      .innerJoin(users, eq(registrations.participantId, users.id))
+      .where(eq(registrations.workshopId, workshopId))
   } catch (err) {
     return []
   }

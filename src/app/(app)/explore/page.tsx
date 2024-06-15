@@ -1,9 +1,6 @@
 import { type Metadata } from "next"
-import { redirect } from "next/navigation"
 import { env } from "@/env"
 
-import { redirects } from "@/config/constants"
-import { getUserSession } from "@/server/data/user"
 import { getWorkshops } from "@/server/data/workshop"
 import { EmptyShell } from "@/components/empty-shell"
 import { PageHeader, PageHeaderHeading } from "@/components/page-header"
@@ -19,12 +16,6 @@ export const metadata: Metadata = {
 }
 
 export default async function DashboardPage() {
-  const { user } = await getUserSession()
-
-  if (!user) {
-    redirect(redirects.toLogin)
-  }
-
   const workshops = await getWorkshops()
 
   return (
@@ -39,11 +30,7 @@ export default async function DashboardPage() {
       {workshops.length ? (
         <section className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {workshops.map((workshop) => (
-            <WorkshopCard
-              key={workshop.id}
-              userId={user.id}
-              workshop={workshop}
-            />
+            <WorkshopCard key={workshop.id} workshop={workshop} />
           ))}
         </section>
       ) : (
