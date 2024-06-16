@@ -4,7 +4,7 @@ import {
   unstable_cache as cache,
   unstable_noStore as noStore,
 } from "next/cache"
-import { and, asc, eq, ne } from "drizzle-orm"
+import { asc, eq } from "drizzle-orm"
 
 import { db } from "../db"
 import { registrations, users, workshops } from "../db/schema"
@@ -14,6 +14,7 @@ export async function getWorkshop(workshopId: string) {
     return db.query.workshops.findFirst({
       columns: {
         id: true,
+        organizerId: true,
         title: true,
         description: true,
         duration: true,
@@ -22,32 +23,10 @@ export async function getWorkshop(workshopId: string) {
         isPublic: true,
         createdAt: true,
       },
-      with: {
-        users: true,
-      },
       where: eq(workshops.id, workshopId),
     })
   } catch (err) {
     return null
-  }
-}
-
-export async function getOtherWorkshops(workshopId: string) {
-  noStore()
-  try {
-    return db
-      .select({
-        id: workshops.id,
-        title: workshops.title,
-        duration: workshops.duration,
-        scheduled: workshops.scheduled,
-      })
-      .from(workshops)
-      .where(and(ne(workshops.id, workshopId), eq(workshops.isPublic, true)))
-      .innerJoin(users, eq(users.id, workshops.organizerId))
-      .orderBy(asc(workshops.scheduled))
-  } catch (err) {
-    return []
   }
 }
 
@@ -91,7 +70,7 @@ export async function getWorkshops() {
   }
 }
 
-export async function getWorkshopRegistrants(workshopId: string) {
+export async function getWorkshopRegistrants(currentWorkshopId: string) {
   noStore()
   try {
     return await db
@@ -101,8 +80,21 @@ export async function getWorkshopRegistrants(workshopId: string) {
       })
       .from(registrations)
       .innerJoin(users, eq(registrations.participantId, users.id))
-      .where(eq(registrations.workshopId, workshopId))
+      .where(eq(registrations.workshopId, currentWorkshopId))
   } catch (err) {
     return []
   }
+}
+
+export async function getWorkshopOrganizer(organizerId: string) {
+  return await cache(async () => {
+    return await db.query.users.findFirst({
+      columns: {
+        id: true,
+        username: true,
+        image: true,
+      },
+      where: eq(users.id, organizerId),
+    })
+  })()
 }

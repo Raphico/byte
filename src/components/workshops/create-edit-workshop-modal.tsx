@@ -7,7 +7,7 @@ import {
   createWorkshopAction,
   updateWorkshopAction,
 } from "@/server/actions/workshop"
-import { type getWorkshops } from "@/server/data/workshop"
+import { type getWorkshop } from "@/server/data/workshop"
 import { generateId } from "@/lib/id"
 import {
   createEditWorkshopSchema,
@@ -36,7 +36,7 @@ import { CreateEditWorkshopForm } from "./create-edit-workshop-form"
 
 interface CreateEditWorkshopModalProps {
   text: "Create" | "Update"
-  workshop?: Awaited<ReturnType<typeof getWorkshops>>[number]
+  workshop?: NonNullable<Awaited<ReturnType<typeof getWorkshop>>>
 }
 
 export function CreateEditWorkshopModal({
