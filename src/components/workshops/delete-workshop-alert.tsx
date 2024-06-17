@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 
 import { deleteWorkshopAction } from "@/server/actions/workshop"
@@ -28,6 +29,7 @@ export function DeleteWorkshopAlert({
   setShowDeleteWorkshopAlert: React.Dispatch<React.SetStateAction<boolean>>
   props: DeleteWorkshopAlertProps
 }) {
+  const router = useRouter()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, startTransition] = React.useTransition()
 
@@ -40,6 +42,7 @@ export function DeleteWorkshopAlert({
       }
 
       toast.success("Workshop Deleted")
+      router.push("/dashboard")
     })
   }
 
