@@ -7,7 +7,7 @@ import { OrganizerSectionSkeleton } from "./_components/organizer-section-skelet
 
 export default function WorkshopLoading() {
   return (
-    <Shell className="max-w-xl gap-4 sm:mt-8">
+    <Shell className="max-w-xl gap-4">
       <div className="flex w-full flex-col items-start space-y-2">
         <div className="flex w-full items-start justify-between">
           <Skeleton className="h-7 w-52" />

@@ -1,63 +1,33 @@
 import * as React from "react"
-import type { Metadata } from "next"
 import { notFound, redirect } from "next/navigation"
-import { env } from "@/env"
-import { eq } from "drizzle-orm"
 
 import { redirects } from "@/config/constants"
 import { getUserSession } from "@/server/data/user"
 import { getWorkshop } from "@/server/data/workshop"
-import { db } from "@/server/db"
-import { workshops } from "@/server/db/schema"
 import { getExactScheduled } from "@/utils/format-scheduled-date"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { CopyButton } from "@/components/copy-button"
 import { Icons } from "@/components/icons"
+import { ModalShell } from "@/components/modal-shell"
 import { PageHeader, PageHeaderHeading } from "@/components/page-header"
-import { Shell } from "@/components/shell"
+import { OrganizerSection } from "@/app/(app)/workshop/[workshopId]/_components/organizer-section"
+import { OrganizerSectionSkeleton } from "@/app/(app)/workshop/[workshopId]/_components/organizer-section-skeleton"
+import { WorkshopSettings } from "@/app/(app)/workshop/[workshopId]/_components/workshop-settings"
 
-import { OrganizerSection } from "./_components/organizer-section"
-import { OrganizerSectionSkeleton } from "./_components/organizer-section-skeleton"
-import { WorkshopSettings } from "./_components/workshop-settings"
-
-interface WorkshopPageProps {
+interface WorkshopModalProps {
   params: {
     workshopId: string
   }
 }
 
-export async function generateMetadata({
-  params,
-}: WorkshopPageProps): Promise<Metadata> {
-  const workshopId = decodeURIComponent(params.workshopId)
-
-  const workshop = await db.query.workshops.findFirst({
-    columns: {
-      title: true,
-      description: true,
-    },
-    where: eq(workshops.id, workshopId),
-  })
-
-  if (!workshop) {
-    return {}
-  }
-
-  return {
-    metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-    title: workshop.title,
-    description: workshop.description,
-  }
-}
-
-export default async function WorkshopPage({ params }: WorkshopPageProps) {
+export default async function WorkshopModal({ params }: WorkshopModalProps) {
   const workshopId = decodeURIComponent(params.workshopId)
 
   const workshop = await getWorkshop(workshopId)
 
   if (!workshop) {
-    notFound()
+    return notFound()
   }
 
   const { user } = await getUserSession()
@@ -69,7 +39,7 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
   const isCurrentUserWorkshop = workshop.organizerId === user.id
 
   return (
-    <Shell className="max-w-xl gap-4">
+    <ModalShell>
       <div className="flex w-full flex-col items-start space-y-1">
         <div className="flex w-full items-start justify-between">
           <PageHeader>
@@ -137,6 +107,6 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
           )}
         </div>
       </div>
-    </Shell>
+    </ModalShell>
   )
 }

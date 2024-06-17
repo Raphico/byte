@@ -85,7 +85,6 @@ export async function deleteWorkshopAction(id: string) {
       .where(and(eq(workshops.organizerId, user.id), eq(workshops.id, id)))
 
     revalidateTag(`workshops-${user.id}`)
-    revalidateTag(`workshops`)
 
     return {
       error: null,
