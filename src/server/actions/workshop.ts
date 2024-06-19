@@ -82,7 +82,9 @@ export async function deleteWorkshopAction(workshopId: string) {
 
     await db
       .delete(workshops)
-      .where(and(eq(workshops.organizerId, user.id), eq(workshops.id, workshopId)))
+      .where(
+        and(eq(workshops.organizerId, user.id), eq(workshops.id, workshopId))
+      )
 
     revalidateTag(`workshops-${user.id}`)
 

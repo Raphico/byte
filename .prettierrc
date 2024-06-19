@@ -26,7 +26,7 @@
   "importOrderSeparation": false,
   "importOrderSpecifiers": true,
   "importOrderBuiltinModulesToTop": true,
-  "importOrderParsePlugins": ["typescript", "jsx", "decorators-legacy"],
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
   "importOrderMergeDuplicateImports": true,
   "importOrderCombineTypeAndValueImports": true,
   "tailwindAttributes": ["tw"],

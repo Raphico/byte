@@ -103,6 +103,7 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
             {getExactScheduled(workshop.scheduled)}
           </p>
         </div>
+
         <div className="flex items-center gap-2">
           <Icons.watch
             className="size-4 text-muted-foreground"
@@ -130,7 +131,7 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
         </React.Suspense>
 
         <div className="flex w-full justify-end">
-          {isCurrentUserWorkshop ? (
+          {!isCurrentUserWorkshop ? (
             <form action={registerUserAndNotify}>
               <RegisterButton />
             </form>
