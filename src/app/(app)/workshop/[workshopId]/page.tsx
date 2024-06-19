@@ -5,6 +5,7 @@ import { env } from "@/env"
 import { eq } from "drizzle-orm"
 
 import { redirects } from "@/config/constants"
+import { registerUserAndNotifyAction } from "@/server/actions/registration"
 import { getUserSession } from "@/server/data/user"
 import { getWorkshop } from "@/server/data/workshop"
 import { db } from "@/server/db"
@@ -19,6 +20,7 @@ import { Shell } from "@/components/shell"
 
 import { OrganizerSection } from "./_components/organizer-section"
 import { OrganizerSectionSkeleton } from "./_components/organizer-section-skeleton"
+import { RegisterButton } from "./_components/register-button"
 import { WorkshopSettings } from "./_components/workshop-settings"
 
 interface WorkshopPageProps {
@@ -67,6 +69,12 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
   }
 
   const isCurrentUserWorkshop = workshop.organizerId === user.id
+
+  const registerUserAndNotify = registerUserAndNotifyAction.bind(null, {
+    workshopId: workshop.id,
+    workshopTitle: workshop.title,
+    participantId: user.id,
+  })
 
   return (
     <Shell className="max-w-xl gap-4">
@@ -122,16 +130,10 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
         </React.Suspense>
 
         <div className="flex w-full justify-end">
-          {!isCurrentUserWorkshop ? (
-            <Button size="sm">
-              {/* {isPending && (
-                <Icons.spinner
-                  className="mr-2 size-4 animate-spin"
-                  aria-hidden="true"
-                />
-              )} */}
-              Register
-            </Button>
+          {isCurrentUserWorkshop ? (
+            <form action={registerUserAndNotify}>
+              <RegisterButton />
+            </form>
           ) : (
             <Button size="sm">Start</Button>
           )}

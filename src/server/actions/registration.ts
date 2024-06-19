@@ -1,17 +1,62 @@
 "use server"
 
 import { revalidateTag } from "next/cache"
+import { env } from "@/env"
 import { and, eq } from "drizzle-orm"
 
-import { getErrorMessage } from "@/utils/handle-error"
+import { resend } from "@/lib/resend"
+import { getErrorMessage, showErrorToast } from "@/utils/handle-error"
+import NewParticipantEmail from "@/components/emails/new-participant-email"
 
+import { getWorkshopOrganizer } from "../data/workshop"
 import { db } from "../db"
 import { registrations } from "../db/schema"
 
-export async function addParticipantAction(input: {
+interface RegisterUserProps {
   workshopId: string
   participantId: string
-}) {
+}
+
+export async function registerUserAndNotifyAction(
+  input: RegisterUserProps & {
+    workshopTitle: string
+  }
+) {
+  const { error } = await registerUserAction({
+    workshopId: input.workshopId,
+    participantId: input.participantId,
+  })
+
+  if (!error) {
+    showErrorToast(error)
+  }
+
+  try {
+    const organizer = await getWorkshopOrganizer(input.workshopId)
+
+    if (!organizer) {
+      throw new Error("Workshop must have an organizer")
+    }
+
+    const { error } = await resend.emails.send({
+      from: env.EMAIL_FROM_ADDRESS,
+      to: ["raphicogit@gmail.com"],
+      subject: "New Registration for your workshop",
+      react: NewParticipantEmail({
+        WorkshopTitle: input.workshopTitle,
+        organizerUsername: organizer.username,
+      }),
+    })
+
+    if (error) {
+      console.error(getErrorMessage(error))
+    }
+  } catch (err) {
+    console.error(getErrorMessage(err))
+  }
+}
+
+export async function registerUserAction(input: RegisterUserProps) {
   try {
     const checkUserRegistered = await db.query.registrations.findFirst({
       where: and(

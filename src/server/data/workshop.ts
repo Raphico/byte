@@ -91,6 +91,7 @@ export async function getWorkshopOrganizer(organizerId: string) {
     return await db.query.users.findFirst({
       columns: {
         id: true,
+        email: true,
         username: true,
         image: true,
       },

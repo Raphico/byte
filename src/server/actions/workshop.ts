@@ -72,7 +72,7 @@ export async function updateWorkshopAction(
   }
 }
 
-export async function deleteWorkshopAction(id: string) {
+export async function deleteWorkshopAction(workshopId: string) {
   try {
     const { user } = await getUserSession()
 
@@ -82,7 +82,7 @@ export async function deleteWorkshopAction(id: string) {
 
     await db
       .delete(workshops)
-      .where(and(eq(workshops.organizerId, user.id), eq(workshops.id, id)))
+      .where(and(eq(workshops.organizerId, user.id), eq(workshops.id, workshopId)))
 
     revalidateTag(`workshops-${user.id}`)
 
