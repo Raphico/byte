@@ -1,21 +1,33 @@
-import { getWorkshopRegistrants } from "@/server/data/workshop"
+import { type getWorkshopRegistrants } from "@/server/data/registration"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 interface WorkshopRegistrantsProps {
-  workshopId: string
+  registrants: Awaited<ReturnType<typeof getWorkshopRegistrants>>
 }
 
-export async function WorkshopRegistrants({
-  workshopId,
-}: WorkshopRegistrantsProps) {
-  const registrants = await getWorkshopRegistrants(workshopId)
+export function WorkshopRegistrants({ registrants }: WorkshopRegistrantsProps) {
+  const displayedRegistrants = registrants.slice(0, 4)
+  const extraRegistrantsCount = registrants.length - displayedRegistrants.length
 
-  if (!registrants.length) {
-    return
-  }
+  return (
+    <div className="flex -space-x-4 rtl:space-x-reverse">
+      {displayedRegistrants.map((registrant) => (
+        <Avatar key={registrant.id}>
+          <AvatarImage
+            src={registrant.image ?? ""}
+            alt={`@${registrant.username}`}
+          />
+          <AvatarFallback>
+            {registrant.username?.charAt(0) ?? "R"}
+          </AvatarFallback>
+        </Avatar>
+      ))}
 
-  if (registrants.length <= 3) {
-    return <></>
-  }
-
-  return <></>
+      {extraRegistrantsCount && (
+        <div className="z-50 flex size-10 items-center justify-center rounded-full bg-muted text-xs font-medium text-white">
+          +{extraRegistrantsCount}
+        </div>
+      )}
+    </div>
+  )
 }

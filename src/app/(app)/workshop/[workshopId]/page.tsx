@@ -5,8 +5,9 @@ import { env } from "@/env"
 import { eq } from "drizzle-orm"
 
 import { redirects } from "@/config/constants"
+import { getWorkshopRegistrants } from "@/server/data/registration"
 import { getUserSession } from "@/server/data/user"
-import { getWorkshop, getWorkshopRegistrants } from "@/server/data/workshop"
+import { getWorkshop } from "@/server/data/workshop"
 import { db } from "@/server/db"
 import { workshops } from "@/server/db/schema"
 import { getExactScheduled } from "@/utils/format-scheduled-date"
@@ -113,9 +114,7 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
           </p>
         </div>
 
-        <React.Suspense>
-          <WorkshopRegistrants workshopId={workshop.id} />
-        </React.Suspense>
+        <WorkshopRegistrants registrants={registrants} />
       </div>
 
       <Separator />

@@ -7,7 +7,7 @@ import {
 import { asc, eq } from "drizzle-orm"
 
 import { db } from "../db"
-import { registrations, users, workshops } from "../db/schema"
+import { users, workshops } from "../db/schema"
 
 export async function getWorkshop(workshopId: string) {
   try {
@@ -65,22 +65,6 @@ export async function getWorkshops() {
       .from(workshops)
       .where(eq(workshops.isPublic, true))
       .orderBy(asc(workshops.scheduled))
-  } catch (err) {
-    return []
-  }
-}
-
-export async function getWorkshopRegistrants(currentWorkshopId: string) {
-  noStore()
-  try {
-    return await db
-      .select({
-        id: users.id,
-        image: users.image,
-      })
-      .from(registrations)
-      .innerJoin(users, eq(registrations.registrantId, users.id))
-      .where(eq(registrations.workshopId, currentWorkshopId))
   } catch (err) {
     return []
   }

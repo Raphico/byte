@@ -38,7 +38,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
       <DropdownMenuTrigger asChild>
         <Button variant="secondary" className="size-8 rounded-full">
           <Avatar className="size-8">
-            <AvatarImage src={user.image} />
+            <AvatarImage src={user.image} alt={`@${user.username}`} />
             <AvatarFallback>{initial}</AvatarFallback>
           </Avatar>
         </Button>

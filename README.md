@@ -32,6 +32,7 @@ The architecture of this project revolves around a streamlined development and d
 - [x] Add auth with lucia
 - [x] Workshop creation
 - [x] Edit workshop
+- [x] Complete workshop page
 - [ ] Interactive workshop session(e.g video conferencing, live chat code editor)
 - [x] Delete workshop
 - [x] Participant registration

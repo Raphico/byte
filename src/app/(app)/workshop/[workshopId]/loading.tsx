@@ -32,6 +32,11 @@ export default function WorkshopLoading() {
           />
           <Skeleton className="h-5 w-10" />
         </div>
+        <div className="flex -space-x-4 rtl:space-x-reverse">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="size-10 rounded-full" />
+          ))}
+        </div>
       </div>
 
       <Separator />
