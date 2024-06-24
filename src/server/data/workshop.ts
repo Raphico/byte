@@ -79,7 +79,7 @@ export async function getWorkshopRegistrants(currentWorkshopId: string) {
         image: users.image,
       })
       .from(registrations)
-      .innerJoin(users, eq(registrations.participantId, users.id))
+      .innerJoin(users, eq(registrations.registrantId, users.id))
       .where(eq(registrations.workshopId, currentWorkshopId))
   } catch (err) {
     return []

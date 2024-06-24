@@ -50,6 +50,13 @@
       "when": 1718393969645,
       "tag": "0006_deep_xorn",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1718820349734,
+      "tag": "0007_exotic_shriek",
+      "breakpoints": true
     }
   ]
 }

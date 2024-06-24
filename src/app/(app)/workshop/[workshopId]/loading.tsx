@@ -45,6 +45,10 @@ export default function WorkshopLoading() {
 
         <OrganizerSectionSkeleton />
       </div>
+
+      <div className="flex w-full justify-end">
+        <Skeleton className="h-9 w-32" />
+      </div>
     </Shell>
   )
 }

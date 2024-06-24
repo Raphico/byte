@@ -66,7 +66,7 @@ export const registrations = pgTable("registrations", {
     .notNull()
     .unique()
     .references(() => workshops.id, { onDelete: "cascade" }),
-  participantId: varchar("participant_id", { length: 30 })
+  registrantId: varchar("registrant_id", { length: 30 })
     .notNull()
     .unique()
     .references(() => users.id),

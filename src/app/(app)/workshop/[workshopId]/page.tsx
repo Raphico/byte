@@ -5,9 +5,8 @@ import { env } from "@/env"
 import { eq } from "drizzle-orm"
 
 import { redirects } from "@/config/constants"
-import { registerUserAndNotifyAction } from "@/server/actions/registration"
 import { getUserSession } from "@/server/data/user"
-import { getWorkshop } from "@/server/data/workshop"
+import { getWorkshop, getWorkshopRegistrants } from "@/server/data/workshop"
 import { db } from "@/server/db"
 import { workshops } from "@/server/db/schema"
 import { getExactScheduled } from "@/utils/format-scheduled-date"
@@ -21,6 +20,7 @@ import { Shell } from "@/components/shell"
 import { OrganizerSection } from "./_components/organizer-section"
 import { OrganizerSectionSkeleton } from "./_components/organizer-section-skeleton"
 import { RegisterButton } from "./_components/register-button"
+import { WorkshopRegistrants } from "./_components/workshop-registrants"
 import { WorkshopSettings } from "./_components/workshop-settings"
 
 interface WorkshopPageProps {
@@ -54,6 +54,12 @@ export async function generateMetadata({
 }
 
 export default async function WorkshopPage({ params }: WorkshopPageProps) {
+  const { user } = await getUserSession()
+
+  if (!user) {
+    redirect(redirects.toLogin)
+  }
+
   const workshopId = decodeURIComponent(params.workshopId)
 
   const workshop = await getWorkshop(workshopId)
@@ -62,19 +68,12 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
     notFound()
   }
 
-  const { user } = await getUserSession()
-
-  if (!user) {
-    redirect(redirects.toLogin)
-  }
+  const registrants = await getWorkshopRegistrants(workshop.id)
 
   const isCurrentUserWorkshop = workshop.organizerId === user.id
-
-  const registerUserAndNotify = registerUserAndNotifyAction.bind(null, {
-    workshopId: workshop.id,
-    workshopTitle: workshop.title,
-    participantId: user.id,
-  })
+  const isCurrentUserRegistered = registrants.some(
+    (registrant) => registrant.id === user.id
+  )
 
   return (
     <Shell className="max-w-xl gap-4">
@@ -113,6 +112,10 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
             {workshop.duration} mins
           </p>
         </div>
+
+        <React.Suspense>
+          <WorkshopRegistrants workshopId={workshop.id} />
+        </React.Suspense>
       </div>
 
       <Separator />
@@ -131,10 +134,13 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
         </React.Suspense>
 
         <div className="flex w-full justify-end">
-          {!isCurrentUserWorkshop ? (
-            <form action={registerUserAndNotify}>
-              <RegisterButton />
-            </form>
+          {isCurrentUserWorkshop ? (
+            <RegisterButton
+              userId={user.id}
+              workshopId={workshop.id}
+              isCurrentUserRegistered={isCurrentUserRegistered}
+              workshopTitle={workshop.title}
+            />
           ) : (
             <Button size="sm">Start</Button>
           )}
