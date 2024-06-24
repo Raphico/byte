@@ -133,7 +133,7 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
         </React.Suspense>
 
         <div className="flex w-full justify-end">
-          {isCurrentUserWorkshop ? (
+          {!isCurrentUserWorkshop ? (
             <RegisterButton
               userId={user.id}
               workshopId={workshop.id}
