@@ -52,7 +52,7 @@ export default function WorkshopLoading() {
       </div>
 
       <div className="flex w-full justify-end">
-        <Skeleton className="h-9 w-32" />
+        <Skeleton className="h-9 w-16" />
       </div>
     </Shell>
   )

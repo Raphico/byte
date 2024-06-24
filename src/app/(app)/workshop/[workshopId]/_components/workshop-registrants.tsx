@@ -6,6 +6,10 @@ interface WorkshopRegistrantsProps {
 }
 
 export function WorkshopRegistrants({ registrants }: WorkshopRegistrantsProps) {
+  if (!registrants.length) {
+    return
+  }
+
   const displayedRegistrants = registrants.slice(0, 4)
   const extraRegistrantsCount = registrants.length - displayedRegistrants.length
 
