@@ -41,4 +41,11 @@ export const createEditWorkshopSchema = z.object({
     .describe("The workshop scheduled date"),
 })
 
+export const joinWorkshopWithCodeSchema = z.object({
+  accessCode: createEditWorkshopSchema.shape.accessCode,
+})
+
+export type JoinWorkshopWithCodeSchema = z.infer<
+  typeof joinWorkshopWithCodeSchema
+>
 export type CreateEditWorkshopSchema = z.infer<typeof createEditWorkshopSchema>

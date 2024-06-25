@@ -16,7 +16,7 @@ export function WorkshopRegistrants({ registrants }: WorkshopRegistrantsProps) {
   return (
     <div className="flex -space-x-4 rtl:space-x-reverse">
       {displayedRegistrants.map((registrant) => (
-        <Avatar key={registrant.id}>
+        <Avatar className="size-8" key={registrant.id}>
           <AvatarImage
             src={registrant.image ?? ""}
             alt={`@${registrant.username}`}
@@ -27,7 +27,7 @@ export function WorkshopRegistrants({ registrants }: WorkshopRegistrantsProps) {
         </Avatar>
       ))}
 
-      {extraRegistrantsCount && (
+      {extraRegistrantsCount !== 0 && (
         <div className="z-50 flex size-10 items-center justify-center rounded-full bg-muted text-xs font-medium text-white">
           +{extraRegistrantsCount}
         </div>

@@ -1,4 +1,4 @@
-# [Byte](https://byte-liart.vercel.app)
+# [Byte](https://byte.raphico.tech)
 
 A platform for developers to plan and manage virtual workshops
 
@@ -32,12 +32,11 @@ The architecture of this project revolves around a streamlined development and d
 - [x] Add auth with lucia
 - [x] Workshop creation
 - [x] Edit workshop
-- [x] Complete workshop page
 - [ ] Interactive workshop session(e.g video conferencing, live chat code editor)
 - [x] Delete workshop
 - [x] Participant registration
-- [ ] Join workshops with workshop code
-- [ ] Complete workshop & dashboard page
+- [x] Join workshops with workshop code
+- [x] Complete workshop & dashboard page
 
 ## Running locally
 

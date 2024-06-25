@@ -4,7 +4,7 @@ import {
   unstable_cache as cache,
   unstable_noStore as noStore,
 } from "next/cache"
-import { or, asc, eq } from "drizzle-orm"
+import { asc, eq, or } from "drizzle-orm"
 
 import { db } from "../db"
 import { registrations, users, workshops } from "../db/schema"
@@ -42,7 +42,12 @@ export async function getUserWorkshops(userId: string) {
         })
         .from(workshops)
         .leftJoin(registrations, eq(registrations.workshopId, workshops.id))
-        .where(or(eq(workshops.organizerId, userId), eq(registrations.registrantId, userId)))
+        .where(
+          or(
+            eq(workshops.organizerId, userId),
+            eq(registrations.registrantId, userId)
+          )
+        )
         .orderBy(asc(workshops.scheduled))
     },
     [`workshops-${userId}`],

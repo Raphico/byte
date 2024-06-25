@@ -34,7 +34,7 @@ export default async function DashboardPage() {
           <PageHeaderHeading>Upcoming</PageHeaderHeading>
         </PageHeader>
 
-        <CreateJoinWorkshopDropdown />
+        <CreateJoinWorkshopDropdown userId={user.id} />
       </div>
 
       {workshops.length ? (

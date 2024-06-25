@@ -34,7 +34,7 @@ export default function WorkshopLoading() {
         </div>
         <div className="flex -space-x-4 rtl:space-x-reverse">
           {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton key={i} className="size-10 rounded-full" />
+            <Skeleton key={i} className="size-6 rounded-full" />
           ))}
         </div>
       </div>
