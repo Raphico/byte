@@ -2,14 +2,11 @@ import * as React from "react"
 import type { Metadata } from "next"
 import { notFound, redirect } from "next/navigation"
 import { env } from "@/env"
-import { eq } from "drizzle-orm"
 
 import { redirects } from "@/config/constants"
 import { getWorkshopRegistrants } from "@/server/data/registration"
 import { getUserSession } from "@/server/data/user"
-import { getWorkshop } from "@/server/data/workshop"
-import { db } from "@/server/db"
-import { workshops } from "@/server/db/schema"
+import { getWorkshop, getWorkshopMetadata } from "@/server/data/workshop"
 import { getExactScheduled } from "@/utils/format-scheduled-date"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
@@ -35,13 +32,7 @@ export async function generateMetadata({
 }: WorkshopPageProps): Promise<Metadata> {
   const workshopId = decodeURIComponent(params.workshopId)
 
-  const workshop = await db.query.workshops.findFirst({
-    columns: {
-      title: true,
-      description: true,
-    },
-    where: eq(workshops.id, workshopId),
-  })
+  const workshop = await getWorkshopMetadata(workshopId)
 
   if (!workshop) {
     return {}

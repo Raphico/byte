@@ -30,6 +30,20 @@ export async function getWorkshop(workshopId: string) {
   }
 }
 
+export async function getWorkshopMetadata(workshopId: string) {
+  try {
+    return db.query.workshops.findFirst({
+      columns: {
+        title: true,
+        description: true,
+      },
+      where: eq(workshops.id, workshopId),
+    })
+  } catch (err) {
+    return null
+  }
+}
+
 export async function getUserWorkshops(userId: string) {
   return await cache(
     async () => {
