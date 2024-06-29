@@ -8,7 +8,7 @@ A platform for developers to plan and manage virtual workshops
 
 2. Users should be able to register for workshops, receiving confirmation for registering and receiving reminders for upcoming events
 
-3. Interactive workshop session with video conferencing for organizer, live chats for participants to communicate with other participants and the organizer, and an integrated code editor for participants to follow along
+3. Interactive workshop session with video conferencing for organizer
 
 ## Tech stack
 
@@ -32,11 +32,12 @@ The architecture of this project revolves around a streamlined development and d
 - [x] Add auth with lucia
 - [x] Workshop creation
 - [x] Edit workshop
-- [ ] Interactive workshop session(e.g video conferencing, live chat code editor)
 - [x] Delete workshop
 - [x] Participant registration
 - [x] Join workshops with workshop code
 - [x] Complete workshop & dashboard page
+- [ ] Improve workshop notification with cron jobs
+- [ ] Interactive workshop session
 
 ## Running locally
 
