@@ -3,7 +3,6 @@
 import * as React from "react"
 import { toast } from "sonner"
 
-import { notifyOrganizerAboutRegistration } from "@/server/actions/notification"
 import {
   cancelRegistrationAction,
   registerUserAction,
@@ -22,7 +21,6 @@ interface RegisterButtonProps {
 export function RegisterButton({
   userId,
   workshopId,
-  workshopTitle,
   isCurrentUserRegistered,
 }: RegisterButtonProps) {
   const [isPending, startTransition] = React.useTransition()
@@ -41,13 +39,6 @@ export function RegisterButton({
       if (error) {
         showErrorToast(error)
         return
-      }
-
-      if (!isCurrentUserRegistered) {
-        await notifyOrganizerAboutRegistration({
-          workshopId,
-          workshopTitle,
-        })
       }
 
       toast.success(
