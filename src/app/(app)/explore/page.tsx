@@ -43,7 +43,7 @@ export default async function DashboardPage() {
           ))}
         </section>
       ) : (
-        <Shell variant="centered">
+        <Shell className="h-[50vh]" variant="centered">
           <EmptyShell
             title="No Workshops Available"
             description="It looks like there are no workshops available at the moment"

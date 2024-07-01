@@ -44,7 +44,7 @@ export default async function DashboardPage() {
           ))}
         </section>
       ) : (
-        <Shell variant="centered">
+        <Shell variant="centered" className="h-[50dvh]">
           <EmptyShell
             title="No Upcoming Workshops"
             description="Looks like you don't have any workshops scheduled yet"

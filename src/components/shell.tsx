@@ -11,7 +11,7 @@ const shellVariants = cva("grid items-center gap-8 pb-8 pt-6 lg:py-6", {
   variants: {
     variant: {
       default: "container",
-      centered: "container flex min-h-[60vh] max-w-2xl flex-col justify-center",
+      centered: "container flex h-[75vh] max-w-2xl flex-col justify-center",
     },
   },
   defaultVariants: {
