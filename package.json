@@ -37,6 +37,8 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@react-email/components": "0.0.19",
+    "@stream-io/node-sdk": "^0.3.0",
+    "@stream-io/video-react-sdk": "^1.2.11",
     "@t3-oss/env-nextjs": "^0.10.1",
     "arctic": "^1.8.1",
     "class-variance-authority": "^0.7.0",

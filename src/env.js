@@ -11,9 +11,11 @@ export const env = createEnv({
     GITHUB_CLIENT_SECRET: z.string(),
     RESEND_API_KEY: z.string(),
     EMAIL_FROM_ADDRESS: z.string().email(),
+    STREAM_SECRET_KEY: z.string(),
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().url(),
+    NEXT_PUBLIC_STREAM_API_KEY: z.string(),
   },
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
@@ -23,6 +25,8 @@ export const env = createEnv({
     GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     EMAIL_FROM_ADDRESS: process.env.EMAIL_FROM_ADDRESS,
+    NEXT_PUBLIC_STREAM_API_KEY: process.env.NEXT_PUBLIC_STREAM_API_KEY,
+    STREAM_SECRET_KEY: process.env.STREAM_SECRET_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

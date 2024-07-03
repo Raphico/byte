@@ -9,6 +9,20 @@ import { asc, eq, or } from "drizzle-orm"
 import { db } from "../db"
 import { registrations, users, workshops } from "../db/schema"
 
+export async function getWorkshopSession(workshopId: string) {
+  return await cache(async () => {
+    return db.query.workshops.findFirst({
+      columns: {
+        id: true,
+        organizerId: true,
+        hasStarted: true,
+        hasCompleted: true,
+      },
+      where: eq(workshops.id, workshopId),
+    })
+  })()
+}
+
 export async function getWorkshop(workshopId: string) {
   try {
     return db.query.workshops.findFirst({

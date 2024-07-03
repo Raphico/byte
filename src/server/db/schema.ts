@@ -51,6 +51,8 @@ export const workshops = pgTable("workshops", {
   duration: integer("duration").notNull(),
   isPublic: boolean("is_public").notNull(),
   accessCode: varchar("access_code", { length: 8 }).unique().notNull(),
+  hasStarted: boolean("has_started").notNull().default(false),
+  hasCompleted: boolean("has_completed").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").default(sql`current_timestamp`),
 })

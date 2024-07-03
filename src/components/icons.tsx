@@ -17,6 +17,7 @@ import {
   RotateCcw,
   Trash2,
   TriangleAlert,
+  UsersRound,
   Video,
   Watch,
   X,
@@ -24,6 +25,7 @@ import {
 } from "lucide-react"
 
 export const Icons = {
+  users: UsersRound,
   close: X,
   trash: Trash2,
   pen: Pen,

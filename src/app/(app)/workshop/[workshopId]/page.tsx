@@ -8,7 +8,6 @@ import { getWorkshopRegistrants } from "@/server/data/registration"
 import { getUserSession } from "@/server/data/user"
 import { getWorkshop, getWorkshopMetadata } from "@/server/data/workshop"
 import { getExactScheduled } from "@/utils/format-scheduled-date"
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { CopyButton } from "@/components/copy-button"
 import { Icons } from "@/components/icons"
@@ -18,6 +17,7 @@ import { Shell } from "@/components/shell"
 import { OrganizerSection } from "./_components/organizer-section"
 import { OrganizerSectionSkeleton } from "./_components/organizer-section-skeleton"
 import { RegisterButton } from "./_components/register-button"
+import { StartWorkshopButton } from "./_components/start-workshop-button"
 import { WorkshopRegistrants } from "./_components/workshop-registrants"
 import { WorkshopSettings } from "./_components/workshop-settings"
 
@@ -132,7 +132,7 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
               workshopTitle={workshop.title}
             />
           ) : (
-            <Button size="sm">Start</Button>
+            <StartWorkshopButton workshopId={workshop.id} />
           )}
         </div>
       </div>
