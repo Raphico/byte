@@ -54,12 +54,20 @@ export function WorkshopButton({
     )
   }
 
+  if (hasWorkshopStarted && isUserRegistered) {
+    return (
+      <Link
+        className={cn(buttonVariants({ size: "sm" }))}
+        href={`/session/${workshopId}`}
+      >
+        Join
+      </Link>
+    )
+  }
+
   return (
-    <Link
-      className={cn(buttonVariants({ size: "sm" }))}
-      href={`/session/${workshopId}`}
-    >
-      Join
-    </Link>
+    <Button size="sm" disabled>
+      Closed
+    </Button>
   )
 }
