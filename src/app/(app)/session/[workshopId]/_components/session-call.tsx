@@ -84,9 +84,9 @@ export function SessionCall({
             <div className="flex flex-col items-center justify-center space-y-4">
               <SpeakerLayout />
               <CallControls
-                onLeave={() => {
+                onLeave={async () => {
                   if (isOrganizer) {
-                    MarkWorkshopHasCompleted(workshopId).then(() =>
+                    await MarkWorkshopHasCompleted(workshopId).then(() =>
                       call.endCall()
                     )
                   }
