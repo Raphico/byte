@@ -1,6 +1,5 @@
 "use server"
 
-import { revalidateTag } from "next/cache"
 import { and, eq } from "drizzle-orm"
 
 import { getUserSession } from "@/server/data/user"
@@ -22,8 +21,6 @@ export async function createWorkshopAction(input: CreateEditWorkshopSchema) {
       ...input,
       organizerId: user.id,
     })
-
-    revalidateTag(`workshops-${user.id}`)
 
     return {
       error: null,
@@ -60,8 +57,6 @@ export async function updateWorkshopAction(
         and(eq(workshops.id, input.id), eq(workshops.organizerId, user.id))
       )
 
-    revalidateTag(`workshops-${user.id}`)
-
     return {
       error: null,
     }
@@ -86,7 +81,59 @@ export async function deleteWorkshopAction(workshopId: string) {
         and(eq(workshops.organizerId, user.id), eq(workshops.id, workshopId))
       )
 
-    revalidateTag(`workshops-${user.id}`)
+    return {
+      error: null,
+    }
+  } catch (err) {
+    return {
+      error: getErrorMessage(err),
+    }
+  }
+}
+
+export async function startWorkshopAction(workshopId: string) {
+  try {
+    const { user } = await getUserSession()
+
+    if (!user) {
+      throw new Error("User not found")
+    }
+
+    await db
+      .update(workshops)
+      .set({
+        hasStarted: true,
+      })
+      .where(
+        and(eq(workshops.id, workshopId), eq(workshops.organizerId, user.id))
+      )
+
+    return {
+      error: null,
+    }
+  } catch (err) {
+    return {
+      error: getErrorMessage(err),
+    }
+  }
+}
+
+export async function MarkWorkshopHasCompleted(workshopId: string) {
+  try {
+    const { user } = await getUserSession()
+
+    if (!user) {
+      throw new Error("User not found")
+    }
+
+    await db
+      .update(workshops)
+      .set({
+        hasCompleted: true,
+      })
+      .where(
+        and(eq(workshops.id, workshopId), eq(workshops.organizerId, user.id))
+      )
 
     return {
       error: null,

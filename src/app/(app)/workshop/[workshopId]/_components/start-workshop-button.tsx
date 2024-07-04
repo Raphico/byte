@@ -1,21 +1,50 @@
 "use client"
 
-import Link from "next/link"
+import * as React from "react"
+import { useRouter } from "next/navigation"
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { startWorkshopAction } from "@/server/actions/workshop"
+import { showErrorToast } from "@/utils/handle-error"
+import { Button } from "@/components/ui/button"
+import { Icons } from "@/components/icons"
 
-interface StartWorkshopButtonProps {
+interface RegisterButtonProps {
   workshopId: string
+  isDisabled: boolean
 }
 
-export function StartWorkshopButton({ workshopId }: StartWorkshopButtonProps) {
+export function StartWorkshopButton({
+  workshopId,
+  isDisabled,
+}: RegisterButtonProps) {
+  const router = useRouter()
+  const [isPending, startTransition] = React.useTransition()
+
+  const handleStartWorkshop = () => {
+    startTransition(async () => {
+      const { error } = await startWorkshopAction(workshopId)
+
+      if (error) {
+        showErrorToast(error)
+      }
+
+      router.push(`/session/${workshopId}`)
+    })
+  }
+
   return (
-    <Link
-      href={`/session/${workshopId}`}
-      className={cn(buttonVariants({ size: "sm" }))}
+    <Button
+      onClick={handleStartWorkshop}
+      size="sm"
+      disabled={isPending || isDisabled}
     >
-      Start Workshop
-    </Link>
+      {isPending && (
+        <Icons.spinner
+          className="mr-2 size-4 animate-spin"
+          aria-hidden={true}
+        />
+      )}
+      Start
+    </Button>
   )
 }

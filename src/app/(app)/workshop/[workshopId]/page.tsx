@@ -8,6 +8,7 @@ import { getWorkshopRegistrants } from "@/server/data/registration"
 import { getUserSession } from "@/server/data/user"
 import { getWorkshop, getWorkshopMetadata } from "@/server/data/workshop"
 import { getExactScheduled } from "@/utils/format-scheduled-date"
+import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { CopyButton } from "@/components/copy-button"
 import { Icons } from "@/components/icons"
@@ -16,8 +17,7 @@ import { Shell } from "@/components/shell"
 
 import { OrganizerSection } from "./_components/organizer-section"
 import { OrganizerSectionSkeleton } from "./_components/organizer-section-skeleton"
-import { RegisterButton } from "./_components/register-button"
-import { StartWorkshopButton } from "./_components/start-workshop-button"
+import { WorkshopButton } from "./_components/workshop-button"
 import { WorkshopRegistrants } from "./_components/workshop-registrants"
 import { WorkshopSettings } from "./_components/workshop-settings"
 
@@ -62,27 +62,29 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
 
   const registrants = await getWorkshopRegistrants(workshop.id)
 
-  const isCurrentUserWorkshop = workshop.organizerId === user.id
-  const isCurrentUserRegistered = registrants.some(
+  const isUserOrganizer = workshop.organizerId === user.id
+  const isUserRegistered = registrants.some(
     (registrant) => registrant.id === user.id
   )
 
   return (
     <Shell className="max-w-xl gap-4">
       <div className="flex w-full flex-col items-start space-y-1">
-        <div className="flex w-full items-start justify-between">
-          <PageHeader>
-            <PageHeaderHeading>{workshop.title}</PageHeaderHeading>
-          </PageHeader>
-
-          <div className="flex items-center gap-1">
-            <CopyButton
-              value={workshop.accessCode}
-              size="icon"
-              className="rounded-full"
-            />
-            {isCurrentUserWorkshop && <WorkshopSettings workshop={workshop} />}
+        <div className="flex w-full items-center justify-between">
+          <div className="flex items-center gap-2">
+            <PageHeader>
+              <PageHeaderHeading>{workshop.title}</PageHeaderHeading>
+            </PageHeader>
+            <Badge>
+              {workshop.hasCompleted
+                ? "Ended"
+                : workshop.hasStarted
+                  ? "Ongoing"
+                  : "Open"}
+            </Badge>
           </div>
+
+          {isUserOrganizer && <WorkshopSettings workshop={workshop} />}
         </div>
 
         <div className="flex items-center gap-2">
@@ -123,17 +125,24 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
           <OrganizerSection organizerId={workshop.organizerId} />
         </React.Suspense>
 
-        <div className="flex w-full justify-end">
-          {!isCurrentUserWorkshop ? (
-            <RegisterButton
-              userId={user.id}
-              workshopId={workshop.id}
-              isCurrentUserRegistered={isCurrentUserRegistered}
-              workshopTitle={workshop.title}
-            />
-          ) : (
-            <StartWorkshopButton workshopId={workshop.id} />
-          )}
+        <div className="flex w-full justify-end space-x-4">
+          <CopyButton
+            variant="secondary"
+            className="gap-2 text-secondary-foreground"
+            value={workshop.accessCode}
+          >
+            Copy code
+          </CopyButton>
+
+          <WorkshopButton
+            userId={user.id}
+            workshopId={workshop.id}
+            isUserOrganizer={isUserOrganizer}
+            isUserRegistered={isUserRegistered}
+            workshopTitle={workshop.title}
+            hasWorkshopStarted={workshop.hasStarted}
+            hasWorkshopCompleted={workshop.hasCompleted}
+          />
         </div>
       </div>
     </Shell>

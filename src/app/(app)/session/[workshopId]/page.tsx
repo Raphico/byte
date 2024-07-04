@@ -30,22 +30,21 @@ export default async function SessionPage({ params }: SessionPageProps) {
   }
 
   const isOrganizer = workshop.organizerId === user.id
+  const registrants = await getWorkshopRegistrants(workshop.id)
+  const isRegistrant = registrants.some(
+    (registrant) => registrant.id === user.id
+  )
+
+  if (!isOrganizer && !isRegistrant) {
+    redirect(`/dashboard`)
+  }
 
   if (workshop.hasCompleted) {
     redirect(`/workshop/${workshop.id}`)
   }
 
-  if (!workshop.hasStarted && !isOrganizer) {
+  if (!workshop.hasStarted) {
     redirect(`/workshop/${workshop.id}`)
-  }
-
-  const registrants = await getWorkshopRegistrants(workshop.id)
-  const isCurrentUserARegistrant = registrants.some(
-    (registrant) => registrant.id === user.id
-  )
-
-  if (workshop.hasStarted && !isCurrentUserARegistrant) {
-    redirect(`/dashboard`)
   }
 
   return (

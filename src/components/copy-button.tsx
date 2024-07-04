@@ -7,7 +7,12 @@ import { cn } from "@/lib/utils"
 import { Icons } from "./icons"
 import { Button, type ButtonProps } from "./ui/button"
 
-export function CopyButton({ value, className, ...props }: ButtonProps) {
+export function CopyButton({
+  value,
+  className,
+  children,
+  ...props
+}: ButtonProps) {
   const [isCopied, setIsCopied] = React.useState(false)
 
   return (
@@ -15,7 +20,7 @@ export function CopyButton({ value, className, ...props }: ButtonProps) {
       type="button"
       variant="ghost"
       size="sm"
-      className={cn("text-muted-foreground hover:bg-transparent", className)}
+      className={cn("text-muted-foreground", className)}
       onClick={() => {
         if (typeof window === "undefined") return
         setIsCopied(true)
@@ -29,6 +34,7 @@ export function CopyButton({ value, className, ...props }: ButtonProps) {
       ) : (
         <Icons.copy className="size-4" aria-hidden="true" />
       )}
+      {children}
     </Button>
   )
 }

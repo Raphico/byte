@@ -39,7 +39,7 @@ export function WorkshopSettings({ workshop }: WorkshopSettingsProps) {
       <DeleteWorkshopAlert />
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
-          <Button size="icon" variant="ghost">
+          <Button size="icon" variant="ghost" className="size-8">
             <Icons.more className="size-5" aria-hidden="true" />
             <span className="sr-only">Workshop Settings Dropdown</span>
           </Button>

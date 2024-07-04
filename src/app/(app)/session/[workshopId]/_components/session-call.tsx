@@ -18,6 +18,7 @@ import { type User } from "lucia"
 import "@stream-io/video-react-sdk/dist/css/styles.css"
 
 import { generateStreamTokenAction } from "@/server/actions/stream"
+import { MarkWorkshopHasCompleted } from "@/server/actions/workshop"
 import { Icons } from "@/components/icons"
 
 interface SessionCallProps {
@@ -81,10 +82,15 @@ export function SessionCall({
         <StreamCall call={call}>
           <div className="grid w-full space-x-10 lg:grid-cols-[1fr_20rem]">
             <div className="flex flex-col items-center justify-center space-y-4">
-              <SpeakerLayout participantsBarPosition="left" />
+              <SpeakerLayout />
               <CallControls
-                onLeave={async () => {
-                  if (isOrganizer) await call.endCall()
+                onLeave={() => {
+                  if (isOrganizer) {
+                    MarkWorkshopHasCompleted(workshopId).then(() =>
+                      call.endCall()
+                    )
+                  }
+
                   router.push("/dashboard")
                 }}
               />

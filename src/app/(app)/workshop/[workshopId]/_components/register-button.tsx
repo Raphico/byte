@@ -16,12 +16,14 @@ interface RegisterButtonProps {
   workshopId: string
   workshopTitle: string
   isCurrentUserRegistered: boolean
+  isDisabled: boolean
 }
 
 export function RegisterButton({
   userId,
   workshopId,
   isCurrentUserRegistered,
+  isDisabled,
 }: RegisterButtonProps) {
   const [isPending, startTransition] = React.useTransition()
 
@@ -51,10 +53,9 @@ export function RegisterButton({
 
   return (
     <Button
-      type="submit"
       onClick={handleOnclickRegisterButton}
       size="sm"
-      disabled={isPending}
+      disabled={isPending || isDisabled}
     >
       {isPending && (
         <Icons.spinner
