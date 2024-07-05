@@ -39,6 +39,7 @@ export function DeleteWorkshopAlert({
 
       if (error) {
         showErrorToast(error)
+        return
       }
 
       toast.success("Workshop Deleted")

@@ -48,6 +48,7 @@ export function JoinWorkshopWithCodeModal({
 
       if (error) {
         showErrorToast(error)
+        return
       }
 
       setShowJoinWorkshopWithCodeModal(false)

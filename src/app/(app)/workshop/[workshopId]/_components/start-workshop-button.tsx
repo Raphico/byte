@@ -26,6 +26,7 @@ export function StartWorkshopButton({
 
       if (error) {
         showErrorToast(error)
+        return
       }
 
       router.push(`/session/${workshopId}`)

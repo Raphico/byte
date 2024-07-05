@@ -79,6 +79,7 @@ export function CreateEditWorkshopModal({
 
       if (error) {
         showErrorToast(error)
+        return
       }
 
       setShowCreateEditWorkshopModal(false)
