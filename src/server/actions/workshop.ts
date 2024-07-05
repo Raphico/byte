@@ -121,7 +121,6 @@ export async function startWorkshopAction(workshopId: string) {
       )
     revalidateTag(`workshops-${workshopId}`)
 
-
     return {
       error: null,
     }
@@ -148,7 +147,7 @@ export async function MarkWorkshopHasCompleted(workshopId: string) {
       .where(
         and(eq(workshops.id, workshopId), eq(workshops.organizerId, user.id))
       )
-    
+
     revalidateTag(`workshops-${workshopId}`)
 
     return {
