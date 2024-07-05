@@ -28,8 +28,8 @@ export async function registerUserWithAccessCode(
       throw new Error("Workshop not found")
     }
 
-    if ((workshop.organizerId = input.userId)) {
-      throw new Error("You cannot register for your own workshop")
+    if (workshop.organizerId === input.userId) {
+      throw new Error("you cannot register for your own workshop")
     }
 
     const { error } = await registerUserAction({
