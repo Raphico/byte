@@ -66,11 +66,9 @@ export const registrations = pgTable("registrations", {
     .primaryKey(),
   workshopId: varchar("workshop_id", { length: 30 })
     .notNull()
-    .unique()
     .references(() => workshops.id, { onDelete: "cascade" }),
   registrantId: varchar("registrant_id", { length: 30 })
     .notNull()
-    .unique()
     .references(() => users.id),
   registeredAt: timestamp("registered_at").defaultNow().notNull(),
 })
