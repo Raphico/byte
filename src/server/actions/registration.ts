@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidateTag } from "next/cache"
-import { eq } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 
 import {
   type RegisterUserWithAccessCode,
@@ -32,6 +32,18 @@ export async function registerUserWithAccessCode(
       throw new Error("you cannot register for your own workshop")
     }
 
+    const isUserAlreadyRegistered = await db.query.registrations.findFirst({
+      columns: { id: true },
+      where: and(
+        eq(registrations.workshopId, workshop.id),
+        eq(registrations.registrantId, input.userId)
+      ),
+    })
+
+    if (isUserAlreadyRegistered) {
+      throw new Error("You are already registered for this workshop")
+    }
+
     const { error } = await registerUserAction({
       userId: input.userId,
       workshopId: workshop.id,
@@ -40,6 +52,8 @@ export async function registerUserWithAccessCode(
     if (error) {
       throw new Error(error)
     }
+
+    revalidateTag(`workshops-${input.userId}`)
 
     return {
       error: null,
@@ -58,6 +72,7 @@ export async function registerUserAction(input: RegistrationSchema) {
       workshopId: input.workshopId,
     })
 
+    revalidateTag(`workshops-${input.workshopId}`)
     revalidateTag(`workshops-${input.userId}`)
 
     return {
@@ -74,8 +89,14 @@ export async function cancelRegistrationAction(input: RegistrationSchema) {
   try {
     await db
       .delete(registrations)
-      .where(eq(registrations.registrantId, input.userId))
+      .where(
+        and(
+          eq(registrations.registrantId, input.userId),
+          eq(registrations.workshopId, input.workshopId)
+        )
+      )
 
+    revalidateTag(`workshops-${input.workshopId}`)
     revalidateTag(`workshops-${input.userId}`)
 
     return {

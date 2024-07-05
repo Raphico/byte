@@ -1,5 +1,6 @@
 "use server"
 
+import { revalidatePath, revalidateTag } from "next/cache"
 import { and, eq } from "drizzle-orm"
 
 import { getUserSession } from "@/server/data/user"
@@ -21,6 +22,9 @@ export async function createWorkshopAction(input: CreateEditWorkshopSchema) {
       ...input,
       organizerId: user.id,
     })
+
+    revalidatePath("/explore")
+    revalidateTag(`workshops-${user.id}`)
 
     return {
       error: null,
@@ -57,6 +61,10 @@ export async function updateWorkshopAction(
         and(eq(workshops.id, input.id), eq(workshops.organizerId, user.id))
       )
 
+    revalidatePath("/explore")
+    revalidateTag(`workshops-${user.id}`)
+    revalidateTag(`workshops-${input.id}`)
+
     return {
       error: null,
     }
@@ -80,6 +88,10 @@ export async function deleteWorkshopAction(workshopId: string) {
       .where(
         and(eq(workshops.organizerId, user.id), eq(workshops.id, workshopId))
       )
+
+    revalidatePath("/explore")
+    revalidateTag(`workshops-${workshopId}`)
+    revalidateTag(`workshops-${user.id}`)
 
     return {
       error: null,
@@ -107,6 +119,8 @@ export async function startWorkshopAction(workshopId: string) {
       .where(
         and(eq(workshops.id, workshopId), eq(workshops.organizerId, user.id))
       )
+    revalidateTag(`workshops-${workshopId}`)
+
 
     return {
       error: null,
@@ -134,6 +148,8 @@ export async function MarkWorkshopHasCompleted(workshopId: string) {
       .where(
         and(eq(workshops.id, workshopId), eq(workshops.organizerId, user.id))
       )
+    
+    revalidateTag(`workshops-${workshopId}`)
 
     return {
       error: null,

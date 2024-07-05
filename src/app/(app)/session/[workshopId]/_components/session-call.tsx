@@ -80,7 +80,19 @@ export function SessionCall({
     <StreamVideo client={videoClient}>
       <StreamTheme>
         <StreamCall call={call}>
-          <div className="grid w-full space-x-10 lg:grid-cols-[1fr_20rem]">
+          <SpeakerLayout />
+          <CallControls
+            onLeave={() => {
+              if (isOrganizer) {
+                void MarkWorkshopHasCompleted(workshopId).then(() =>
+                  call.endCall()
+                )
+              }
+
+              router.push("/dashboard")
+            }}
+          />
+          {/* <div className="grid w-full space-x-10 lg:grid-cols-[1fr_20rem]">
             <div className="flex flex-col items-center justify-center space-y-4">
               <SpeakerLayout />
               <CallControls
@@ -102,7 +114,7 @@ export function SessionCall({
           </div>
           <div className="lg:hidden">
             <CallParticipantsList onClose={() => undefined} />
-          </div>
+          </div> */}
         </StreamCall>
       </StreamTheme>
     </StreamVideo>

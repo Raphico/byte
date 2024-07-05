@@ -1,7 +1,10 @@
 import "server-only"
 
-import { unstable_noStore as noStore } from "next/cache"
-import { asc, eq, or } from "drizzle-orm"
+import {
+  unstable_cache as cache,
+  unstable_noStore as noStore,
+} from "next/cache"
+import { and, asc, eq, or } from "drizzle-orm"
 
 import { db } from "../db"
 import { registrations, users, workshops } from "../db/schema"
@@ -24,31 +27,34 @@ export async function getWorkshopSession(workshopId: string) {
 }
 
 export async function getWorkshop(workshopId: string) {
-  noStore()
-  try {
-    return db.query.workshops.findFirst({
-      columns: {
-        id: true,
-        organizerId: true,
-        title: true,
-        description: true,
-        duration: true,
-        accessCode: true,
-        scheduled: true,
-        hasStarted: true,
-        hasCompleted: true,
-        isPublic: true,
-        createdAt: true,
-      },
-      where: eq(workshops.id, workshopId),
-    })
-  } catch (err) {
-    return null
-  }
+  return await cache(
+    async () => {
+      return db.query.workshops.findFirst({
+        columns: {
+          id: true,
+          organizerId: true,
+          title: true,
+          description: true,
+          duration: true,
+          accessCode: true,
+          scheduled: true,
+          hasStarted: true,
+          hasCompleted: true,
+          isPublic: true,
+          createdAt: true,
+        },
+        where: eq(workshops.id, workshopId),
+      })
+    },
+    [`workshop-${workshopId}`],
+    {
+      revalidate: 300,
+      tags: [`workshops-${workshopId}`],
+    }
+  )()
 }
 
 export async function getWorkshopMetadata(workshopId: string) {
-  noStore()
   try {
     return db.query.workshops.findFirst({
       columns: {
@@ -63,27 +69,31 @@ export async function getWorkshopMetadata(workshopId: string) {
 }
 
 export async function getUserWorkshops(userId: string) {
-  noStore()
-  try {
-    return db
-      .select({
-        id: workshops.id,
-        title: workshops.title,
-        duration: workshops.duration,
-        scheduled: workshops.scheduled,
-      })
-      .from(workshops)
-      .leftJoin(registrations, eq(registrations.workshopId, workshops.id))
-      .where(
-        or(
-          eq(workshops.organizerId, userId),
-          eq(registrations.registrantId, userId)
+  return await cache(
+    async () => {
+      return db
+        .select({
+          id: workshops.id,
+          title: workshops.title,
+          duration: workshops.duration,
+          scheduled: workshops.scheduled,
+        })
+        .from(workshops)
+        .leftJoin(registrations, eq(registrations.workshopId, workshops.id))
+        .where(
+          or(
+            eq(workshops.organizerId, userId),
+            eq(registrations.registrantId, userId)
+          )
         )
-      )
-      .orderBy(asc(workshops.scheduled))
-  } catch (err) {
-    return []
-  }
+        .orderBy(asc(workshops.hasCompleted), asc(workshops.scheduled))
+    },
+    [`workshops-${userId}`],
+    {
+      revalidate: 300,
+      tags: [`workshops-${userId}`],
+    }
+  )()
 }
 
 export async function getWorkshops() {
@@ -97,7 +107,13 @@ export async function getWorkshops() {
         scheduled: workshops.scheduled,
       })
       .from(workshops)
-      .where(eq(workshops.isPublic, true))
+      .where(
+        and(
+          eq(workshops.isPublic, true),
+          eq(workshops.hasStarted, false),
+          eq(workshops.hasCompleted, false)
+        )
+      )
       .orderBy(asc(workshops.scheduled))
   } catch (err) {
     return []
@@ -105,8 +121,7 @@ export async function getWorkshops() {
 }
 
 export async function getWorkshopOrganizer(organizerId: string) {
-  noStore()
-  try {
+  return await cache(async () => {
     return await db.query.users.findFirst({
       columns: {
         id: true,
@@ -116,7 +131,5 @@ export async function getWorkshopOrganizer(organizerId: string) {
       },
       where: eq(users.id, organizerId),
     })
-  } catch (err) {
-    return null
-  }
+  })()
 }
