@@ -72,7 +72,6 @@ export async function registerUserAction(input: RegistrationSchema) {
       workshopId: input.workshopId,
     })
 
-    revalidateTag(`workshops-${input.workshopId}`)
     revalidateTag(`workshops-${input.userId}`)
 
     return {
@@ -96,7 +95,6 @@ export async function cancelRegistrationAction(input: RegistrationSchema) {
         )
       )
 
-    revalidateTag(`workshops-${input.workshopId}`)
     revalidateTag(`workshops-${input.userId}`)
 
     return {

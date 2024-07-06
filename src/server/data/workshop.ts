@@ -27,31 +27,27 @@ export async function getWorkshopSession(workshopId: string) {
 }
 
 export async function getWorkshop(workshopId: string) {
-  return await cache(
-    async () => {
-      return db.query.workshops.findFirst({
-        columns: {
-          id: true,
-          organizerId: true,
-          title: true,
-          description: true,
-          duration: true,
-          accessCode: true,
-          scheduled: true,
-          hasStarted: true,
-          hasCompleted: true,
-          isPublic: true,
-          createdAt: true,
-        },
-        where: eq(workshops.id, workshopId),
-      })
-    },
-    [`workshop-${workshopId}`],
-    {
-      revalidate: 300,
-      tags: [`workshops-${workshopId}`],
-    }
-  )()
+  noStore()
+  try {
+    return db.query.workshops.findFirst({
+      columns: {
+        id: true,
+        organizerId: true,
+        title: true,
+        description: true,
+        duration: true,
+        accessCode: true,
+        scheduled: true,
+        hasStarted: true,
+        hasCompleted: true,
+        isPublic: true,
+        createdAt: true,
+      },
+      where: eq(workshops.id, workshopId),
+    })
+  } catch (err) {
+    return null
+  }
 }
 
 export async function getWorkshopMetadata(workshopId: string) {

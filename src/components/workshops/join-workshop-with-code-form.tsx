@@ -25,6 +25,7 @@ export function JoinWorkshopWithCodeForm({
       <form
         className={cn("grid gap-4", className)}
         onSubmit={form.handleSubmit(onSubmit)}
+        autoComplete="off"
         {...props}
       >
         <FormField
