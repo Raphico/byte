@@ -4,7 +4,6 @@ import { redirects } from "@/config/constants"
 import { getWorkshopRegistrants } from "@/server/data/registration"
 import { getUserSession } from "@/server/data/user"
 import { getWorkshopSession } from "@/server/data/workshop"
-import { Shell } from "@/components/shell"
 
 import { SessionCall } from "./_components/session-call"
 
@@ -48,12 +47,10 @@ export default async function SessionPage({ params }: SessionPageProps) {
   }
 
   return (
-    <Shell className="max-w-6xl" variant="centered">
-      <SessionCall
-        workshopId={workshopId}
-        isOrganizer={isOrganizer}
-        user={user}
-      />
-    </Shell>
+    <SessionCall
+      workshopId={workshopId}
+      isOrganizer={isOrganizer}
+      user={user}
+    />
   )
 }

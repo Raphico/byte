@@ -92,29 +92,7 @@ export function SessionCall({
               router.push("/dashboard")
             }}
           />
-          {/* <div className="grid w-full space-x-10 lg:grid-cols-[1fr_20rem]">
-            <div className="flex flex-col items-center justify-center space-y-4">
-              <SpeakerLayout />
-              <CallControls
-                onLeave={async () => {
-                  if (isOrganizer) {
-                    await MarkWorkshopHasCompleted(workshopId).then(() =>
-                      call.endCall()
-                    )
-                  }
-
-                  router.push("/dashboard")
-                }}
-              />
-            </div>
-
-            <div className="max-lg:hidden">
-              <CallParticipantsList onClose={() => undefined} />
-            </div>
-          </div>
-          <div className="lg:hidden">
-            <CallParticipantsList onClose={() => undefined} />
-          </div> */}
+          <CallParticipantsList onClose={() => undefined} />
         </StreamCall>
       </StreamTheme>
     </StreamVideo>
