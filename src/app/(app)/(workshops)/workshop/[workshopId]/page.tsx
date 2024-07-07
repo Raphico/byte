@@ -84,7 +84,12 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
             </Badge>
           </div>
 
-          {isUserOrganizer && <WorkshopSettings workshop={workshop} />}
+          {isUserOrganizer && (
+            <WorkshopSettings
+              workshop={workshop}
+              showEditButton={!workshop.hasStarted && !workshop.hasCompleted}
+            />
+          )}
         </div>
 
         <div className="flex items-center gap-2">
@@ -126,13 +131,15 @@ export default async function WorkshopPage({ params }: WorkshopPageProps) {
         </React.Suspense>
 
         <div className="flex w-full justify-end space-x-4">
-          <CopyButton
-            variant="secondary"
-            className="gap-2 text-secondary-foreground"
-            value={workshop.accessCode}
-          >
-            Copy code
-          </CopyButton>
+          {!workshop.hasStarted && !workshop.hasCompleted && (
+            <CopyButton
+              variant="secondary"
+              className="gap-2 text-secondary-foreground"
+              value={workshop.accessCode}
+            >
+              Copy code
+            </CopyButton>
+          )}
 
           <WorkshopButton
             userId={user.id}

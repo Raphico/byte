@@ -25,13 +25,9 @@ export function WorkshopButton({
   userId,
   hasWorkshopCompleted,
 }: WorkshopButtonProps) {
-  if (hasWorkshopCompleted) {
-    return (
-      <Button disabled size="sm">
-        Ended
-      </Button>
-    )
-  }
+  if (hasWorkshopCompleted) return
+
+  if (!isUserRegistered && hasWorkshopStarted) return
 
   if (isUserOrganizer) {
     return (
@@ -54,20 +50,12 @@ export function WorkshopButton({
     )
   }
 
-  if (hasWorkshopStarted && isUserRegistered) {
-    return (
-      <Link
-        className={cn(buttonVariants({ size: "sm" }))}
-        href={`/session/${workshopId}`}
-      >
-        Join
-      </Link>
-    )
-  }
-
   return (
-    <Button size="sm" disabled>
-      Closed
-    </Button>
+    <Link
+      className={cn(buttonVariants({ size: "sm" }))}
+      href={`/session/${workshopId}`}
+    >
+      Join
+    </Link>
   )
 }

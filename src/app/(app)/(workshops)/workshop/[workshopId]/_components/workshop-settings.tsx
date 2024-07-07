@@ -17,9 +17,13 @@ import { useDeleteWorkshopAlert } from "@/components/workshops/delete-workshop-a
 
 interface WorkshopSettingsProps {
   workshop: NonNullable<Awaited<ReturnType<typeof getWorkshop>>>
+  showEditButton: boolean
 }
 
-export function WorkshopSettings({ workshop }: WorkshopSettingsProps) {
+export function WorkshopSettings({
+  workshop,
+  showEditButton,
+}: WorkshopSettingsProps) {
   const [open, setOpen] = React.useState(false)
 
   const { setShowCreateEditWorkshopModal, CreateEditWorkshopModal } =
@@ -45,17 +49,21 @@ export function WorkshopSettings({ workshop }: WorkshopSettingsProps) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem
-            onClick={() => {
-              setOpen(false)
-              setShowCreateEditWorkshopModal(true)
-            }}
-            aria-label="Edit Workshop"
-          >
-            <Icons.pen className="mr-2 size-4" aria-hidden="true" />
-            Edit
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
+          {showEditButton && (
+            <>
+              <DropdownMenuItem
+                onClick={() => {
+                  setOpen(false)
+                  setShowCreateEditWorkshopModal(true)
+                }}
+                aria-label="Edit Workshop"
+              >
+                <Icons.pen className="mr-2 size-4" aria-hidden="true" />
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+            </>
+          )}
           <DropdownMenuItem
             aria-label="Delete Workshop"
             onClick={() => {
