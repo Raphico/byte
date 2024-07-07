@@ -80,19 +80,23 @@ export function SessionCall({
     <StreamVideo client={videoClient}>
       <StreamTheme>
         <StreamCall call={call}>
-          <SpeakerLayout />
-          <CallControls
-            onLeave={() => {
-              if (isOrganizer) {
-                void MarkWorkshopHasCompleted(workshopId).then(() =>
-                  call.endCall()
-                )
-              }
+          <section className="container mt-8 overflow-hidden">
+            <SpeakerLayout />
+            <CallControls
+              onLeave={() => {
+                if (isOrganizer) {
+                  void MarkWorkshopHasCompleted(workshopId).then(() =>
+                    call.endCall()
+                  )
+                }
 
-              router.push("/dashboard")
-            }}
-          />
-          <CallParticipantsList onClose={() => undefined} />
+                router.push("/dashboard")
+              }}
+            />
+            <div className="mx-auto max-w-3xl">
+              <CallParticipantsList onClose={() => undefined} />
+            </div>
+          </section>
         </StreamCall>
       </StreamTheme>
     </StreamVideo>

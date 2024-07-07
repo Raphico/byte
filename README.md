@@ -36,8 +36,8 @@ The architecture of this project revolves around a streamlined development and d
 - [x] Participant registration
 - [x] Join workshops with workshop code
 - [x] Complete workshop & dashboard page
+- [x] Interactive workshop session
 - [ ] Improve workshop notification with cron jobs
-- [ ] Interactive workshop session
 
 ## Running locally
 
