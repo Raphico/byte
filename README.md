@@ -8,7 +8,7 @@ A platform for developers to plan and manage virtual workshops
 
 2. Users should be able to register for workshops, receiving confirmation for registering and receiving reminders for upcoming events
 
-3. Interactive workshop session with video conferencing for organizer
+3. Interactive workshop session with video conferencing
 
 ## Tech stack
 
@@ -37,7 +37,6 @@ The architecture of this project revolves around a streamlined development and d
 - [x] Join workshops with workshop code
 - [x] Complete workshop & dashboard page
 - [x] Interactive workshop session
-- [ ] Improve workshop notification with cron jobs
 
 ## Running locally
 
